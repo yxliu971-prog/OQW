@@ -1,0 +1,634 @@
+"""
+Module containing functions to compute atomic coordinates in 3D using distance geometry
+"""
+from __future__ import annotations
+import typing
+__all__: list[str] = ['BAD_DOUBLE_BOND_STEREO', 'CHECK_CHIRAL_CENTERS', 'CHECK_CHIRAL_CENTERS2', 'CHECK_TETRAHEDRAL_CENTERS', 'CLASH', 'DG', 'ETDG', 'ETDGv2', 'ETKDG', 'ETKDGv2', 'ETKDGv3', 'ETK_MINIMIZATION', 'EXCEEDED_TIMEOUT', 'EmbedFailureCauses', 'EmbedMolecule', 'EmbedMultipleConfs', 'EmbedParameters', 'EmbedParametersToJSON', 'FINAL_CENTER_IN_VOLUME', 'FINAL_CHIRAL_BOUNDS', 'FIRST_MINIMIZATION', 'GetExperimentalTorsions', 'GetMoleculeBoundsMatrix', 'INITIAL_COORDS', 'KDG', 'KTERM_VIOLATION', 'LINEAR_DOUBLE_BOND', 'MINIMIZATION', 'MINIMIZE_FOURTH_DIMENSION', 'OrderedEmbedFailureCauses', 'srETKDGv3']
+class EmbedFailureCauses(Boost.Python.enum):
+    BAD_DOUBLE_BOND_STEREO: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.BAD_DOUBLE_BOND_STEREO
+    CHECK_CHIRAL_CENTERS: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS
+    CHECK_CHIRAL_CENTERS2: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS2
+    CHECK_TETRAHEDRAL_CENTERS: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_TETRAHEDRAL_CENTERS
+    CLASH: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CLASH
+    ETK_MINIMIZATION: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.ETK_MINIMIZATION
+    EXCEEDED_TIMEOUT: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.EXCEEDED_TIMEOUT
+    FINAL_CENTER_IN_VOLUME: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CENTER_IN_VOLUME
+    FINAL_CHIRAL_BOUNDS: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CHIRAL_BOUNDS
+    FIRST_MINIMIZATION: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FIRST_MINIMIZATION
+    INITIAL_COORDS: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.INITIAL_COORDS
+    KTERM_VIOLATION: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.KTERM_VIOLATION
+    LINEAR_DOUBLE_BOND: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.LINEAR_DOUBLE_BOND
+    MINIMIZATION: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZATION
+    MINIMIZE_FOURTH_DIMENSION: typing.ClassVar[EmbedFailureCauses]  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZE_FOURTH_DIMENSION
+    __slots__: typing.ClassVar[tuple] = tuple()
+    names: typing.ClassVar[dict]  # value = {'INITIAL_COORDS': rdkit.Chem.rdDistGeom.EmbedFailureCauses.INITIAL_COORDS, 'FIRST_MINIMIZATION': rdkit.Chem.rdDistGeom.EmbedFailureCauses.FIRST_MINIMIZATION, 'CHECK_TETRAHEDRAL_CENTERS': rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_TETRAHEDRAL_CENTERS, 'CHECK_CHIRAL_CENTERS': rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS, 'MINIMIZE_FOURTH_DIMENSION': rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZE_FOURTH_DIMENSION, 'ETK_MINIMIZATION': rdkit.Chem.rdDistGeom.EmbedFailureCauses.ETK_MINIMIZATION, 'FINAL_CHIRAL_BOUNDS': rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CHIRAL_BOUNDS, 'FINAL_CENTER_IN_VOLUME': rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CENTER_IN_VOLUME, 'LINEAR_DOUBLE_BOND': rdkit.Chem.rdDistGeom.EmbedFailureCauses.LINEAR_DOUBLE_BOND, 'BAD_DOUBLE_BOND_STEREO': rdkit.Chem.rdDistGeom.EmbedFailureCauses.BAD_DOUBLE_BOND_STEREO, 'CHECK_CHIRAL_CENTERS2': rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS2, 'EXCEEDED_TIMEOUT': rdkit.Chem.rdDistGeom.EmbedFailureCauses.EXCEEDED_TIMEOUT, 'MINIMIZATION': rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZATION, 'KTERM_VIOLATION': rdkit.Chem.rdDistGeom.EmbedFailureCauses.KTERM_VIOLATION, 'CLASH': rdkit.Chem.rdDistGeom.EmbedFailureCauses.CLASH}
+    values: typing.ClassVar[dict]  # value = {0: rdkit.Chem.rdDistGeom.EmbedFailureCauses.INITIAL_COORDS, 1: rdkit.Chem.rdDistGeom.EmbedFailureCauses.FIRST_MINIMIZATION, 2: rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_TETRAHEDRAL_CENTERS, 3: rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS, 4: rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZE_FOURTH_DIMENSION, 5: rdkit.Chem.rdDistGeom.EmbedFailureCauses.ETK_MINIMIZATION, 6: rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CHIRAL_BOUNDS, 7: rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CENTER_IN_VOLUME, 8: rdkit.Chem.rdDistGeom.EmbedFailureCauses.LINEAR_DOUBLE_BOND, 9: rdkit.Chem.rdDistGeom.EmbedFailureCauses.BAD_DOUBLE_BOND_STEREO, 10: rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS2, 11: rdkit.Chem.rdDistGeom.EmbedFailureCauses.EXCEEDED_TIMEOUT, 12: rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZATION, 13: rdkit.Chem.rdDistGeom.EmbedFailureCauses.KTERM_VIOLATION, 14: rdkit.Chem.rdDistGeom.EmbedFailureCauses.CLASH}
+class EmbedParameters(Boost.Python.instance):
+    """
+    Parameters controlling embedding
+    """
+    __instance_size__: typing.ClassVar[int] = 232
+    @staticmethod
+    def SetCoordMap(arg1: EmbedParameters, self: dict) -> None:
+        """
+            sets the coordmap to be used
+        
+            C++ signature :
+                void SetCoordMap(struct `anonymous namespace'::PyEmbedParameters {lvalue},class boost::python::dict)
+        """
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    @staticmethod
+    def __setattr__(arg1: typing.Any, arg2: str, arg3: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setattr__(class boost::python::api::object,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class boost::python::api::object)
+        """
+    def GetFailureCounts(self) -> tuple:
+        """
+            returns the counts of each failure type
+        
+            C++ signature :
+                class boost::python::tuple GetFailureCounts(struct `anonymous namespace'::PyEmbedParameters {lvalue})
+        """
+    def SetBoundsMat(self, boundsMatArg: typing.Any) -> None:
+        """
+            set the distance-bounds matrix to be used (no triangle smoothing will be done on this) from a Numpy array
+        
+            C++ signature :
+                void SetBoundsMat(struct `anonymous namespace'::PyEmbedParameters {lvalue},class boost::python::api::object)
+        """
+    def SetCPCI(self, CPCIdict: dict) -> None:
+        """
+            set the customised pairwise Columb-like interaction to atom pairs.used during structural minimisation stage
+        
+            C++ signature :
+                void SetCPCI(struct `anonymous namespace'::PyEmbedParameters {lvalue},class boost::python::dict)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    @property
+    def ETversion(*args, **kwargs):
+        """
+        version of the experimental torsion-angle preferences
+        """
+    @ETversion.setter
+    def ETversion(*args, **kwargs):
+        ...
+    @property
+    def basinThresh(*args, **kwargs):
+        """
+        set the basin threshold for the DGeom force field.
+        """
+    @basinThresh.setter
+    def basinThresh(*args, **kwargs):
+        ...
+    @property
+    def boundsMatForceScaling(*args, **kwargs):
+        """
+        scale the weights of the atom pair distance restraints relative to the other types of restraints
+        """
+    @boundsMatForceScaling.setter
+    def boundsMatForceScaling(*args, **kwargs):
+        ...
+    @property
+    def boxSizeMult(*args, **kwargs):
+        """
+        determines the size of the box used for random coordinates
+        """
+    @boxSizeMult.setter
+    def boxSizeMult(*args, **kwargs):
+        ...
+    @property
+    def clearConfs(*args, **kwargs):
+        """
+        clear all existing conformations on the molecule
+        """
+    @clearConfs.setter
+    def clearConfs(*args, **kwargs):
+        ...
+    @property
+    def embedFragmentsSeparately(*args, **kwargs):
+        """
+        split the molecule into fragments and embed them separately
+        """
+    @embedFragmentsSeparately.setter
+    def embedFragmentsSeparately(*args, **kwargs):
+        ...
+    @property
+    def enableSequentialRandomSeeds(*args, **kwargs):
+        """
+        handle random number seeds so that conformer generation can be restarted
+        """
+    @enableSequentialRandomSeeds.setter
+    def enableSequentialRandomSeeds(*args, **kwargs):
+        ...
+    @property
+    def enforceChirality(*args, **kwargs):
+        """
+        enforce correct chirilaty if chiral centers are present
+        """
+    @enforceChirality.setter
+    def enforceChirality(*args, **kwargs):
+        ...
+    @property
+    def forceTransAmides(*args, **kwargs):
+        """
+        constrain amide bonds to be trans
+        """
+    @forceTransAmides.setter
+    def forceTransAmides(*args, **kwargs):
+        ...
+    @property
+    def ignoreSmoothingFailures(*args, **kwargs):
+        """
+        try and embed the molecule if if triangle smoothing of the bounds matrix fails
+        """
+    @ignoreSmoothingFailures.setter
+    def ignoreSmoothingFailures(*args, **kwargs):
+        ...
+    @property
+    def maxIterations(*args, **kwargs):
+        """
+        maximum number of embedding attempts to use for a single conformation
+        """
+    @maxIterations.setter
+    def maxIterations(*args, **kwargs):
+        ...
+    @property
+    def numThreads(*args, **kwargs):
+        """
+        number of threads to use when embedding multiple conformations
+        """
+    @numThreads.setter
+    def numThreads(*args, **kwargs):
+        ...
+    @property
+    def numZeroFail(*args, **kwargs):
+        """
+        fail embedding if we have at least this many zero eigenvalues
+        """
+    @numZeroFail.setter
+    def numZeroFail(*args, **kwargs):
+        ...
+    @property
+    def onlyHeavyAtomsForRMS(*args, **kwargs):
+        """
+        Only consider heavy atoms when doing RMS filtering
+        """
+    @onlyHeavyAtomsForRMS.setter
+    def onlyHeavyAtomsForRMS(*args, **kwargs):
+        ...
+    @property
+    def optimizerForceTol(*args, **kwargs):
+        """
+        the tolerance to be used during the distance-geometry force field minimization
+        """
+    @optimizerForceTol.setter
+    def optimizerForceTol(*args, **kwargs):
+        ...
+    @property
+    def pruneRmsThresh(*args, **kwargs):
+        """
+        used to filter multiple conformations: keep only conformations that are at least this far apart from each other
+        """
+    @pruneRmsThresh.setter
+    def pruneRmsThresh(*args, **kwargs):
+        ...
+    @property
+    def randNegEig(*args, **kwargs):
+        """
+        if the embedding yields a negative eigenvalue, pick coordinates that correspond to this component at random
+        """
+    @randNegEig.setter
+    def randNegEig(*args, **kwargs):
+        ...
+    @property
+    def randomSeed(*args, **kwargs):
+        """
+        seed for the random number generator
+        """
+    @randomSeed.setter
+    def randomSeed(*args, **kwargs):
+        ...
+    @property
+    def symmetrizeConjugatedTerminalGroupsForPruning(*args, **kwargs):
+        """
+        symmetrize terminal conjugated groups for RMSD pruning
+        """
+    @symmetrizeConjugatedTerminalGroupsForPruning.setter
+    def symmetrizeConjugatedTerminalGroupsForPruning(*args, **kwargs):
+        ...
+    @property
+    def timeout(*args, **kwargs):
+        """
+        maximum time in seconds to generate a conformer for a single molecule fragment. If set to 0, no timeout is set
+        """
+    @timeout.setter
+    def timeout(*args, **kwargs):
+        ...
+    @property
+    def trackFailures(*args, **kwargs):
+        """
+        keep track of which checks during the embedding process fail
+        """
+    @trackFailures.setter
+    def trackFailures(*args, **kwargs):
+        ...
+    @property
+    def useBasicKnowledge(*args, **kwargs):
+        """
+        impose basic-knowledge constraints such as flat rings
+        """
+    @useBasicKnowledge.setter
+    def useBasicKnowledge(*args, **kwargs):
+        ...
+    @property
+    def useExpTorsionAnglePrefs(*args, **kwargs):
+        """
+        impose experimental torsion angle preferences
+        """
+    @useExpTorsionAnglePrefs.setter
+    def useExpTorsionAnglePrefs(*args, **kwargs):
+        ...
+    @property
+    def useLegacyImplementation(*args, **kwargs):
+        """
+        Whether to use the combined minimization approach
+        """
+    @useLegacyImplementation.setter
+    def useLegacyImplementation(*args, **kwargs):
+        ...
+    @property
+    def useMacrocycle14config(*args, **kwargs):
+        """
+        use the 1-4 distance bounds from ETKDGv3
+        """
+    @useMacrocycle14config.setter
+    def useMacrocycle14config(*args, **kwargs):
+        ...
+    @property
+    def useMacrocycleTorsions(*args, **kwargs):
+        """
+        impose macrocycle torsion angle preferences
+        """
+    @useMacrocycleTorsions.setter
+    def useMacrocycleTorsions(*args, **kwargs):
+        ...
+    @property
+    def useRandomCoords(*args, **kwargs):
+        """
+        start the embedding from random coordinates instead of using eigenvalues of the distance matrix
+        """
+    @useRandomCoords.setter
+    def useRandomCoords(*args, **kwargs):
+        ...
+    @property
+    def useSmallRingTorsions(*args, **kwargs):
+        """
+        impose small ring torsion angle preferences
+        """
+    @useSmallRingTorsions.setter
+    def useSmallRingTorsions(*args, **kwargs):
+        ...
+    @property
+    def useSymmetryForPruning(*args, **kwargs):
+        """
+        use molecule symmetry when doing the RMSD pruning. Note that this option automatically also sets onlyHeavyAtomsForRMS to true.
+        """
+    @useSymmetryForPruning.setter
+    def useSymmetryForPruning(*args, **kwargs):
+        ...
+    @property
+    def verbose(*args, **kwargs):
+        """
+        be verbose about configuration
+        """
+    @verbose.setter
+    def verbose(*args, **kwargs):
+        ...
+def DG() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for plain distance geometry.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 DG()
+    """
+def ETDG() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETDG method.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 ETDG()
+    """
+def ETDGv2() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETDG method - version 2.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 ETDGv2()
+    """
+def ETKDG() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETKDG method - version 1.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 ETKDG()
+    """
+def ETKDGv2() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETKDG method - version 2.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 ETKDGv2()
+    """
+def ETKDGv3() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETKDG method - version 3 (macrocycles).
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 ETKDGv3()
+    """
+@typing.overload
+def EmbedMolecule(mol: Mol, maxAttempts: int = 0, randomSeed: int = -1, clearConfs: bool = True, useRandomCoords: bool = False, boxSizeMult: float = 2.0, randNegEig: bool = True, numZeroFail: int = 1, coordMap: dict = {}, forceTol: float = 0.001, ignoreSmoothingFailures: bool = False, enforceChirality: bool = True, useExpTorsionAnglePrefs: bool = True, useBasicKnowledge: bool = True, printExpTorsionAngles: bool = False, useSmallRingTorsions: bool = False, useMacrocycleTorsions: bool = True, ETversion: int = 2, useMacrocycle14config: bool = True) -> int:
+    """
+        Use distance geometry to obtain initial 
+         coordinates for a molecule
+        
+         
+         ARGUMENTS:
+        
+            - mol : the molecule of interest
+            - maxAttempts : maximum number of embedding attempts to use for a single conformation 
+            - randomSeed : provide a seed for the random number generator 
+                           so that the same coordinates can be obtained 
+                           for a molecule on multiple runs. If -1, the 
+                           RNG will not be seeded. 
+            - clearConfs : clear all existing conformations on the molecule
+            - useRandomCoords : Start the embedding from random coordinates instead of
+                                using eigenvalues of the distance matrix.
+            - boxSizeMult :  Determines the size of the box that is used for
+                             random coordinates. If this is a positive number, the 
+                             side length will equal the largest element of the distance
+                             matrix times boxSizeMult. If this is a negative number,
+                             the side length will equal -boxSizeMult (i.e. independent
+                             of the elements of the distance matrix).
+            - randNegEig : If the embedding yields a negative eigenvalue, 
+                           pick coordinates that correspond 
+                           to this component at random 
+            - numZeroFail : fail embedding if we have at least this many zero eigenvalues 
+            - coordMap : a dictionary mapping atom IDs->coordinates. Use this to 
+                         require some atoms to have fixed coordinates in the resulting 
+                         conformation.
+            - forceTol : tolerance to be used during the force-field minimization with 
+                         the distance geometry force field.
+            - ignoreSmoothingFailures : try to embed the molecule even if triangle smoothing
+                         of the bounds matrix fails.
+            - enforceChirality : enforce the correct chirality if chiral centers are present.
+            - useExpTorsionAnglePrefs : impose experimental torsion angle preferences
+            - useBasicKnowledge : impose basic knowledge such as flat rings
+            - printExpTorsionAngles : print the output from the experimental torsion angles
+            - useMacrocycleTorsions : use additional torsion profiles for macrocycles
+            - ETversion : version of the standard torsion definitions to use. NOTE for both
+                          ETKDGv2 and ETKDGv3 this should be 2 since ETKDGv3 uses the ETKDGv2
+                          definitions for standard torsions
+            - useMacrocycle14config : use the 1-4 distance bounds from ETKDGv3
+        
+         RETURNS:
+        
+            ID of the new conformation added to the molecule or -1 if the embedding fails.
+        
+        
+    
+        C++ signature :
+            int EmbedMolecule(class RDKit::ROMol {lvalue} [,unsigned int=0 [,int=-1 [,bool=True [,bool=False [,double=2.0 [,bool=True [,unsigned int=1 [,class boost::python::dict {lvalue}={} [,double=0.001 [,bool=False [,bool=True [,bool=True [,bool=True [,bool=False [,bool=False [,bool=True [,unsigned int=2 [,bool=True]]]]]]]]]]]]]]]]]])
+    """
+@typing.overload
+def EmbedMolecule(mol: Mol, params: EmbedParameters) -> int:
+    """
+        Use distance geometry to obtain intial 
+         coordinates for a molecule
+        
+         
+         ARGUMENTS:
+        
+            - mol : the molecule of interest
+            - params : an EmbedParameters object 
+        
+         RETURNS:
+        
+            ID of the new conformation added to the molecule or -1 if the embedding fails. 
+        
+        
+    
+        C++ signature :
+            int EmbedMolecule(class RDKit::ROMol {lvalue},struct RDKit::DGeomHelpers::EmbedParameters {lvalue})
+    """
+@typing.overload
+def EmbedMultipleConfs(mol: Mol, numConfs: int = 10, maxAttempts: int = 0, randomSeed: int = -1, clearConfs: bool = True, useRandomCoords: bool = False, boxSizeMult: float = 2.0, randNegEig: bool = True, numZeroFail: int = 1, pruneRmsThresh: float = -1.0, coordMap: dict = {}, forceTol: float = 0.001, ignoreSmoothingFailures: bool = False, enforceChirality: bool = True, numThreads: int = 1, useExpTorsionAnglePrefs: bool = True, useBasicKnowledge: bool = True, printExpTorsionAngles: bool = False, useSmallRingTorsions: bool = False, useMacrocycleTorsions: bool = True, ETversion: int = 2, useMacrocycle14config: bool = True) -> _vectint:
+    """
+        Use distance geometry to obtain multiple sets of 
+         coordinates for a molecule
+         
+         ARGUMENTS:
+        
+          - mol : the molecule of interest
+          - numConfs : the number of conformers to generate 
+          - maxAttempts : maximum number of embedding attempts to use for a single conformation 
+          - randomSeed : provide a seed for the random number generator 
+                         so that the same coordinates can be obtained 
+                         for a molecule on multiple runs. If -1, the 
+                         RNG will not be seeded. 
+          - clearConfs : clear all existing conformations on the molecule
+          - useRandomCoords : Start the embedding from random coordinates instead of
+                              using eigenvalues of the distance matrix.
+          - boxSizeMult    Determines the size of the box that is used for
+                           random coordinates. If this is a positive number, the 
+                           side length will equal the largest element of the distance
+                           matrix times boxSizeMult. If this is a negative number,
+                           the side length will equal -boxSizeMult (i.e. independent
+                           of the elements of the distance matrix).
+          - randNegEig : If the embedding yields a negative eigenvalue, 
+                         pick coordinates that correspond 
+                         to this component at random 
+          - numZeroFail : fail embedding if we have at least this many zero eigenvalues 
+          - pruneRmsThresh : Retain only the conformations out of 'numConfs' 
+                            after embedding that are at least 
+                            this far apart from each other. 
+                            RMSD is computed on the heavy atoms. 
+                            Pruning is greedy; i.e. the first embedded conformation
+                            is retained and from then on only those that are at
+                            least pruneRmsThresh away from all retained conformations
+                            are kept. The pruning is done after embedding and 
+                            bounds violation minimization. No pruning by default.
+          - coordMap : a dictionary mapping atom IDs->coordinates. Use this to 
+                       require some atoms to have fixed coordinates in the resulting 
+                       conformation.
+          - forceTol : tolerance to be used during the force-field minimization with 
+                       the distance geometry force field.
+          - ignoreSmoothingFailures : try to embed the molecule even if triangle smoothing
+                       of the bounds matrix fails.
+          - enforceChirality : enforce the correct chirality if chiral centers are present.
+          - numThreads : number of threads to use while embedding. This only has an effect if the RDKit
+                       was built with multi-thread support.
+                      If set to zero, the max supported by the system will be used.
+          - useExpTorsionAnglePrefs : impose experimental torsion angle preferences
+          - useBasicKnowledge : impose basic knowledge such as flat rings
+          - printExpTorsionAngles : print the output from the experimental torsion angles
+         RETURNS:
+        
+            Iterator which yields new conformation IDs 
+        
+        
+    
+        C++ signature :
+            class std::vector<int,class std::allocator<int> > EmbedMultipleConfs(class RDKit::ROMol {lvalue} [,unsigned int=10 [,unsigned int=0 [,int=-1 [,bool=True [,bool=False [,double=2.0 [,bool=True [,unsigned int=1 [,double=-1.0 [,class boost::python::dict {lvalue}={} [,double=0.001 [,bool=False [,bool=True [,int=1 [,bool=True [,bool=True [,bool=False [,bool=False [,bool=True [,unsigned int=2 [,bool=True]]]]]]]]]]]]]]]]]]]]])
+    """
+@typing.overload
+def EmbedMultipleConfs(mol: Mol, numConfs: int, params: EmbedParameters) -> _vectint:
+    """
+        Use distance geometry to obtain multiple sets of 
+         coordinates for a molecule
+         
+         ARGUMENTS:
+        
+          - mol : the molecule of interest
+          - numConfs : the number of conformers to generate 
+          - params : an EmbedParameters object 
+         RETURNS:
+        
+            Iterator which yields new conformation IDs 
+        
+        
+    
+        C++ signature :
+            class std::vector<int,class std::allocator<int> > EmbedMultipleConfs(class RDKit::ROMol {lvalue},unsigned int,struct RDKit::DGeomHelpers::EmbedParameters {lvalue})
+    """
+def EmbedParametersToJSON(embedParameters: EmbedParameters) -> str:
+    """
+        Returns json string containing embedParameters attributes
+          
+          ARGUMENTS:
+        
+            - embedParameters : the Params object you want serialized
+          RETURNS:
+        
+            The Params object as json string
+          
+        
+    
+        C++ signature :
+            class boost::python::str EmbedParametersToJSON(struct RDKit::DGeomHelpers::EmbedParameters)
+    """
+@typing.overload
+def GetExperimentalTorsions(mol: Mol, useExpTorsionAnglePrefs: bool = True, useSmallRingTorsions: bool = False, useMacrocycleTorsions: bool = True, useBasicKnowledge: bool = True, ETversion: int = 2, printExpTorsionAngles: bool = False) -> tuple:
+    """
+        returns information about the bonds corresponding to experimental torsions
+    
+        C++ signature :
+            class boost::python::tuple GetExperimentalTorsions(class RDKit::ROMol [,bool=True [,bool=False [,bool=True [,bool=True [,unsigned int=2 [,bool=False]]]]]])
+    """
+@typing.overload
+def GetExperimentalTorsions(mol: Mol, embedParams: EmbedParameters) -> tuple:
+    """
+        returns information about the bonds corresponding to experimental torsions
+    
+        C++ signature :
+            class boost::python::tuple GetExperimentalTorsions(class RDKit::ROMol,struct RDKit::DGeomHelpers::EmbedParameters)
+    """
+@typing.overload
+def GetMoleculeBoundsMatrix(mol: Mol, set15bounds: bool = True, scaleVDW: bool = False, doTriangleSmoothing: bool = True, useMacrocycle14config: bool = False, forceTransAmides: bool = True, set14bounds: bool = True, set13bounds: bool = True) -> typing.Any:
+    """
+        Returns the distance bounds matrix for a molecule
+         
+         ARGUMENTS:
+        
+            - mol : the molecule of interest
+            - set15bounds : set bounds for 1-5 atom distances based on 
+                            topology (otherwise stop at 1-4s)
+            - scaleVDW : ignored 
+            - doTriangleSmoothing : run triangle smoothing on the bounds 
+                         matrix before returning it 
+            - useMacrocycle14config : use 1-4 distance bound heuristics for macrocycles
+            - forceTransAmides : constrain amide bonds to be trans
+            - set14bounds : set bounds for 1-4 atom distances based on 
+                            topology
+            - set13bounds : set bounds for 1-3 atom distances based on 
+                            topology
+         RETURNS:
+        
+            the bounds matrix as a Numeric array with lower bounds in 
+            the lower triangle and upper bounds in the upper triangle
+        
+        
+    
+        C++ signature :
+            struct _object * __ptr64 GetMoleculeBoundsMatrix(class RDKit::ROMol {lvalue} [,bool=True [,bool=False [,bool=True [,bool=False [,bool=True [,bool=True [,bool=True]]]]]]])
+    """
+@typing.overload
+def GetMoleculeBoundsMatrix(mol: Mol, embedParams: EmbedParameters, doTriangleSmoothing: bool = True, scaleVDW: bool = False, set15bounds: bool = True, set14bounds: bool = True, set13bounds: bool = True) -> typing.Any:
+    """
+        Returns the distance bounds matrix for a molecule
+         
+         ARGUMENTS:
+        
+            - mol : the molecule of interest
+            - set15bounds : set bounds for 1-5 atom distances based on 
+                            topology (otherwise stop at 1-4s)
+            - scaleVDW : ignored 
+            - doTriangleSmoothing : run triangle smoothing on the bounds 
+                         matrix before returning it 
+            - useMacrocycle14config : use 1-4 distance bound heuristics for macrocycles
+            - forceTransAmides : constrain amide bonds to be trans
+            - set14bounds : set bounds for 1-4 atom distances based on 
+                            topology
+            - set13bounds : set bounds for 1-3 atom distances based on 
+                            topology
+         RETURNS:
+        
+            the bounds matrix as a Numeric array with lower bounds in 
+            the lower triangle and upper bounds in the upper triangle
+        
+        
+    
+        C++ signature :
+            struct _object * __ptr64 GetMoleculeBoundsMatrix(class RDKit::ROMol {lvalue},struct RDKit::DGeomHelpers::EmbedParameters [,bool=True [,bool=False [,bool=True [,bool=True [,bool=True]]]]])
+    """
+def KDG() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the KDG method.
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 KDG()
+    """
+def OrderedEmbedFailureCauses(legacyImplementation: bool = True) -> list:
+    """
+        C++ signature :
+            class boost::python::list OrderedEmbedFailureCauses([ bool=True])
+    """
+def srETKDGv3() -> EmbedParameters:
+    """
+        Returns an EmbedParameters object for the ETKDG method - version 3 (small rings).
+    
+        C++ signature :
+            struct `anonymous namespace'::PyEmbedParameters * __ptr64 srETKDGv3()
+    """
+BAD_DOUBLE_BOND_STEREO: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.BAD_DOUBLE_BOND_STEREO
+CHECK_CHIRAL_CENTERS: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS
+CHECK_CHIRAL_CENTERS2: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_CHIRAL_CENTERS2
+CHECK_TETRAHEDRAL_CENTERS: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CHECK_TETRAHEDRAL_CENTERS
+CLASH: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.CLASH
+ETK_MINIMIZATION: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.ETK_MINIMIZATION
+EXCEEDED_TIMEOUT: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.EXCEEDED_TIMEOUT
+FINAL_CENTER_IN_VOLUME: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CENTER_IN_VOLUME
+FINAL_CHIRAL_BOUNDS: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FINAL_CHIRAL_BOUNDS
+FIRST_MINIMIZATION: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.FIRST_MINIMIZATION
+INITIAL_COORDS: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.INITIAL_COORDS
+KTERM_VIOLATION: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.KTERM_VIOLATION
+LINEAR_DOUBLE_BOND: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.LINEAR_DOUBLE_BOND
+MINIMIZATION: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZATION
+MINIMIZE_FOURTH_DIMENSION: EmbedFailureCauses  # value = rdkit.Chem.rdDistGeom.EmbedFailureCauses.MINIMIZE_FOURTH_DIMENSION

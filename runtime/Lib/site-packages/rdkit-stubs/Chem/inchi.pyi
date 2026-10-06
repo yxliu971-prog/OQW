@@ -1,0 +1,161 @@
+from __future__ import annotations
+import logging as logging
+from rdkit import Chem
+from rdkit.Chem import rdinchi
+from rdkit import Geometry
+import rdkit.RDLogger
+from rdkit import RDLogger
+import re as re
+__all__: list = ['MolToInchiAndAuxInfo', 'MolToInchi', 'MolBlockToInchiAndAuxInfo', 'MolBlockToInchi', 'MolFromInchi', 'MolFromInchiAndAuxInfo', 'InchiReadWriteError', 'InchiToInchiKey', 'MolToInchiKey', 'GetInchiVersion', 'INCHI_AVAILABLE']
+class InchiReadWriteError(Exception):
+    pass
+def InchiToInchiKey(inchi):
+    """
+    Return the InChI key for the given InChI string. Return None on error
+    """
+def MolBlockToInchi(molblock, options = '', logLevel = None, treatWarningAsError = False):
+    """
+    Returns the standard InChI string for a mol block
+    
+        Keyword arguments:
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant InChI
+        string and AuxInfo string as well as the error message are encoded in the
+        exception.
+    
+        Returns:
+        the standard InChI string returned by InChI API for the input molecule
+        
+    """
+def MolBlockToInchiAndAuxInfo(molblock, options = '', logLevel = None, treatWarningAsError = False):
+    """
+    Returns the standard InChI string and InChI auxInfo for a mol block
+    
+        Keyword arguments:
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant InChI
+        string and AuxInfo string as well as the error message are encoded in the
+        exception.
+    
+        Returns:
+        a tuple of the standard InChI string and the auxInfo string returned by
+        InChI API, in that order, for the input molecule
+        
+    """
+def MolFromInchi(inchi, sanitize = True, removeHs = True, logLevel = None, treatWarningAsError = False):
+    """
+    Construct a molecule from a InChI string
+    
+        Keyword arguments:
+        sanitize -- set to True to enable sanitization of the molecule. Default is
+        True
+        removeHs -- set to True to remove Hydrogens from a molecule. This only
+        makes sense when sanitization is enabled
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant
+        molecule  and error message are part of the excpetion
+    
+        Returns:
+        a rdkit.Chem.rdchem.Mol instance
+        
+    """
+def MolFromInchiAndAuxInfo(inchi, auxinfo, sanitize = True, removeHs = True, logLevel = None, treatWarningAsError = False):
+    """
+    Construct a molecule from an InChI string and its AuxInfo, restoring the
+      original atom ordering.
+    
+        Keyword arguments:
+        sanitize -- set to True to enable sanitization of the molecule. Default is
+        True
+        removeHs -- set to True to remove Hydrogens from a molecule. This only
+        makes sense when sanitization is enabled
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant
+        molecule and error message are part of the excpetion
+    
+        Returns:
+        a rdkit.Chem.rdchem.Mol instance with atoms reordered to match the
+        original atom ordering encoded in the AuxInfo
+        
+    """
+def MolToInchi(mol, options = '', logLevel = None, treatWarningAsError = False):
+    """
+    Returns the standard InChI string for a molecule
+    
+        Keyword arguments:
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant InChI
+        string and AuxInfo string as well as the error message are encoded in the
+        exception.
+    
+        Returns:
+        the standard InChI string returned by InChI API for the input molecule
+        
+    """
+def MolToInchiAndAuxInfo(mol, options = '', logLevel = None, treatWarningAsError = False):
+    """
+    Returns the standard InChI string and InChI auxInfo for a molecule
+    
+        Keyword arguments:
+        logLevel -- the log level used for logging logs and messages from InChI
+        API. set to None to diable the logging completely
+        treatWarningAsError -- set to True to raise an exception in case of a
+        molecule that generates warning in calling InChI API. The resultant InChI
+        string and AuxInfo string as well as the error message are encoded in the
+        exception.
+    
+        Returns:
+        a tuple of the standard InChI string and the auxInfo string returned by
+        InChI API, in that order, for the input molecule
+        
+    """
+def MolToInchiKey(mol, options = ''):
+    """
+    Returns the standard InChI key for a molecule
+    
+        Returns:
+        the standard InChI key returned by InChI API for the input molecule
+        
+    """
+def _attach_conformer(mol, coords, is_3d):
+    """
+    Attach parsed /rC: coordinates to a molecule as a conformer.
+    """
+def _build_inverse_permutation(atom_order, size):
+    """
+    Build the inverse permutation for RenumberAtoms.
+    
+      atom_order[inchi_idx] = original_idx. Returns new_order where
+      new_order[original_idx] = inchi_idx, or None if any index is out of range.
+      
+    """
+def _parse_auxinfo_atom_order(auxinfo):
+    """
+    Parse the N: (atom numbering) layer from an InChI AuxInfo string.
+    
+      Returns a list of 0-based original atom indices, or None if parsing fails.
+      The returned list maps from InChI canonical order to original atom order:
+      result[i] is the original atom index for InChI canonical atom i.
+      
+    """
+def _parse_auxinfo_coordinates(auxinfo):
+    """
+    Parse the rC: (coordinate) layer from an InChI AuxInfo string.
+    
+      Returns (coords_list, is_3d) where coords_list is a list of (x, y, z) tuples
+      in original input atom order, or (None, None) if parsing fails or coords are empty.
+      
+    """
+INCHI_AVAILABLE: bool = True
+logLevelToLogFunctionLookup: dict = {20: rdkit.RDLogger.logger.info, 10: rdkit.RDLogger.logger.debug, 30: rdkit.RDLogger.logger.warning, 50: rdkit.RDLogger.logger.critical, 40: rdkit.RDLogger.logger.error}
+logger: rdkit.RDLogger.logger  # value = <rdkit.RDLogger.logger object>

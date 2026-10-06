@@ -1,0 +1,15 @@
+本包保留 Python 许可及各生产依赖的 dist-info 元数据与许可证。
+完整生产包名、版本及元数据见“生产依赖清单.json”；各依赖原始许可位于：
+runtime\Lib\site-packages\对应包名.dist-info\（LICENSE、licenses 等）。
+前端 React / ECharts / zrender / lucide-react 等原始声明位于“前端”子目录。
+
+中文报告字体来源：Google Fonts / Noto Sans SC，SIL Open Font License 1.1。
+https://github.com/google/fonts/tree/main/ofl/notosanssc
+分发的 OQW Report Sans 是由该字体固定 wght=400 后更名的派生文件，
+保留原始版权声明，继续使用 OFL 1.1；原文见“字体-OFL.txt”。
+没有复制或分发 Windows 的商业中文字体。
+
+公开数据的来源、引用和适用说明见“使用说明/数据来源与规则说明.md”及应用内来源卡片。
+EPA 分类映射为 OQW 自定义规则；软件不代表 EPA、GSK、ACS 或 ECHA 的认证。
+公开可读取不等于所有贡献者内容都采用同一许可，记录保留各贡献者的来源信息。
+这些第三方声明不决定 OQW 自有代码的版权或商业授权范围。

@@ -1,0 +1,292 @@
+[
+  {
+    "name": "SQLAlchemy",
+    "version": "2.0.54",
+    "license": "MIT",
+    "home": "https://www.sqlalchemy.org",
+    "project_urls": [
+      "Documentation, https://docs.sqlalchemy.org",
+      "Issue Tracker, https://github.com/sqlalchemy/sqlalchemy/"
+    ]
+  },
+  {
+    "name": "annotated-doc",
+    "version": "0.0.5",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/fastapi/annotated-doc",
+      "Documentation, https://github.com/fastapi/annotated-doc",
+      "Repository, https://github.com/fastapi/annotated-doc",
+      "Issues, https://github.com/fastapi/annotated-doc/issues",
+      "Changelog, https://github.com/fastapi/annotated-doc/release-notes.md"
+    ]
+  },
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/annotated-types/annotated-types",
+      "Source, https://github.com/annotated-types/annotated-types",
+      "Changelog, https://github.com/annotated-types/annotated-types/releases"
+    ]
+  },
+  {
+    "name": "anyio",
+    "version": "4.15.1",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Documentation, https://anyio.readthedocs.io/en/latest/",
+      "Changelog, https://anyio.readthedocs.io/en/stable/versionhistory.html",
+      "Source code, https://github.com/agronholm/anyio",
+      "Issue tracker, https://github.com/agronholm/anyio/issues"
+    ]
+  },
+  {
+    "name": "certifi",
+    "version": "2026.7.22",
+    "license": "MPL-2.0",
+    "home": "https://github.com/certifi/python-certifi",
+    "project_urls": [
+      "Source, https://github.com/certifi/python-certifi"
+    ]
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Changelog, https://github.com/jawah/charset_normalizer/blob/master/CHANGELOG.md",
+      "Documentation, https://charset-normalizer.readthedocs.io/",
+      "Code, https://github.com/jawah/charset_normalizer",
+      "Issue tracker, https://github.com/jawah/charset_normalizer/issues"
+    ]
+  },
+  {
+    "name": "click",
+    "version": "8.5.0",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Changes, https://click.palletsprojects.com/page/changes/",
+      "Chat, https://discord.gg/pallets",
+      "Documentation, https://click.palletsprojects.com/",
+      "Donate, https://palletsprojects.com/donate",
+      "Source, https://github.com/pallets/click/"
+    ]
+  },
+  {
+    "name": "fastapi",
+    "version": "0.142.2",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/fastapi/fastapi",
+      "Documentation, https://fastapi.tiangolo.com/",
+      "Repository, https://github.com/fastapi/fastapi",
+      "Issues, https://github.com/fastapi/fastapi/issues",
+      "Changelog, https://fastapi.tiangolo.com/release-notes/"
+    ]
+  },
+  {
+    "name": "greenlet",
+    "version": "3.5.6",
+    "license": "MIT AND PSF-2.0",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://greenlet.readthedocs.io",
+      "Documentation, https://greenlet.readthedocs.io",
+      "Repository, https://github.com/python-greenlet/greenlet",
+      "Issues, https://github.com/python-greenlet/greenlet/issues",
+      "Changelog, https://greenlet.readthedocs.io/en/latest/changes.html"
+    ]
+  },
+  {
+    "name": "h11",
+    "version": "0.16.0",
+    "license": "MIT",
+    "home": "https://github.com/python-hyper/h11",
+    "project_urls": []
+  },
+  {
+    "name": "httpcore",
+    "version": "1.0.9",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Documentation, https://www.encode.io/httpcore",
+      "Homepage, https://www.encode.io/httpcore/",
+      "Source, https://github.com/encode/httpcore"
+    ]
+  },
+  {
+    "name": "httpx",
+    "version": "0.28.1",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Changelog, https://github.com/encode/httpx/blob/master/CHANGELOG.md",
+      "Documentation, https://www.python-httpx.org",
+      "Homepage, https://github.com/encode/httpx",
+      "Source, https://github.com/encode/httpx"
+    ]
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Changelog, https://github.com/kjd/idna/blob/master/HISTORY.md",
+      "Issue tracker, https://github.com/kjd/idna/issues",
+      "Source, https://github.com/kjd/idna"
+    ]
+  },
+  {
+    "name": "numpy",
+    "version": "2.5.3",
+    "license": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+    "home": "",
+    "project_urls": [
+      "homepage, https://numpy.org",
+      "documentation, https://numpy.org/doc/",
+      "source, https://github.com/numpy/numpy",
+      "download, https://pypi.org/project/numpy/#files",
+      "tracker, https://github.com/numpy/numpy/issues",
+      "release notes, https://numpy.org/doc/stable/release"
+    ]
+  },
+  {
+    "name": "opentelemetry-api",
+    "version": "1.45.0",
+    "license": "Apache-2.0",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/open-telemetry/opentelemetry-python/tree/main/opentelemetry-api",
+      "Repository, https://github.com/open-telemetry/opentelemetry-python"
+    ]
+  },
+  {
+    "name": "pillow",
+    "version": "12.3.0",
+    "license": "MIT-CMU",
+    "home": "",
+    "project_urls": [
+      "Release notes, https://pillow.readthedocs.io/en/stable/releasenotes/index.html",
+      "Changelog, https://github.com/python-pillow/Pillow/releases",
+      "Documentation, https://pillow.readthedocs.io",
+      "Funding, https://tidelift.com/subscription/pkg/pypi-pillow?utm_source=pypi-pillow&utm_medium=pypi",
+      "Homepage, https://python-pillow.github.io",
+      "Mastodon, https://fosstodon.org/@pillow",
+      "Source, https://github.com/python-pillow/Pillow"
+    ]
+  },
+  {
+    "name": "pydantic",
+    "version": "2.13.5",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/pydantic/pydantic",
+      "Documentation, https://docs.pydantic.dev",
+      "Funding, https://github.com/sponsors/samuelcolvin",
+      "Source, https://github.com/pydantic/pydantic",
+      "Changelog, https://docs.pydantic.dev/latest/changelog/"
+    ]
+  },
+  {
+    "name": "pydantic_core",
+    "version": "2.46.5",
+    "license": "MIT",
+    "home": "https://github.com/pydantic/pydantic",
+    "project_urls": [
+      "Funding, https://github.com/sponsors/samuelcolvin",
+      "Homepage, https://github.com/pydantic",
+      "Source, https://github.com/pydantic/pydantic/tree/main/pydantic-core"
+    ]
+  },
+  {
+    "name": "python-multipart",
+    "version": "0.0.32",
+    "license": "Apache-2.0",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/Kludex/python-multipart",
+      "Documentation, https://kludex.github.io/python-multipart/",
+      "Changelog, https://github.com/Kludex/python-multipart/blob/master/CHANGELOG.md",
+      "Source, https://github.com/Kludex/python-multipart"
+    ]
+  },
+  {
+    "name": "rdkit",
+    "version": "2026.3.6",
+    "license": "BSD-3-Clause",
+    "home": "https://github.com/kuelumbus/rdkit-pypi",
+    "project_urls": [
+      "RDKit, http://rdkit.org/",
+      "RDKit on Github, https://github.com/rdkit/rdkit"
+    ]
+  },
+  {
+    "name": "reportlab",
+    "version": "4.5.1",
+    "license": "BSD license (see license.txt for details), Copyright (c) 2000-2025, ReportLab Inc.",
+    "home": "https://www.reportlab.com/",
+    "project_urls": []
+  },
+  {
+    "name": "starlette",
+    "version": "1.7.0",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/Kludex/starlette",
+      "Documentation, https://starlette.dev/",
+      "Changelog, https://starlette.dev/release-notes/",
+      "Funding, https://github.com/sponsors/Kludex",
+      "Source, https://github.com/Kludex/starlette"
+    ]
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.4",
+    "license": "MIT",
+    "home": "",
+    "project_urls": [
+      "Homepage, https://github.com/pydantic/typing-inspection",
+      "Documentation, https://pydantic.github.io/typing-inspection/dev/",
+      "Source, https://github.com/pydantic/typing-inspection",
+      "Changelog, https://github.com/pydantic/typing-inspection/blob/main/HISTORY.md"
+    ]
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license": "PSF-2.0",
+    "home": "",
+    "project_urls": [
+      "Bug Tracker, https://github.com/python/typing_extensions/issues",
+      "Changes, https://github.com/python/typing_extensions/blob/main/CHANGELOG.md",
+      "Documentation, https://typing-extensions.readthedocs.io/",
+      "Home, https://github.com/python/typing_extensions",
+      "Q & A, https://github.com/python/typing/discussions",
+      "Repository, https://github.com/python/typing_extensions"
+    ]
+  },
+  {
+    "name": "uvicorn",
+    "version": "0.54.0",
+    "license": "BSD-3-Clause",
+    "home": "",
+    "project_urls": [
+      "Changelog, https://uvicorn.dev/release-notes",
+      "Funding, https://github.com/sponsors/Kludex",
+      "Homepage, https://uvicorn.dev/",
+      "Source, https://github.com/Kludex/uvicorn"
+    ]
+  }
+]

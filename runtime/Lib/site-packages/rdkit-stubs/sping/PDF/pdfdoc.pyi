@@ -1,0 +1,249 @@
+"""
+ 
+PDFgen is a library to generate PDF files containing text and graphics.  It is the 
+foundation for a complete reporting solution in Python.  
+
+The module pdfdoc.py handles the 'outer structure' of PDF documents, ensuring that
+all objects are properly cross-referenced and indexed to the nearest byte.  The 
+'inner structure' - the page descriptions - are presumed to be generated before 
+each page is saved.
+pdfgen.py calls this and provides a 'canvas' object to handle page marking operators.
+piddlePDF calls pdfgen and offers a high-level interface.
+
+(C) Copyright Andy Robinson 1998-1999
+"""
+from __future__ import annotations
+from builtins import NoneType
+from builtins import NotImplementedType
+from builtins import async_generator as AsyncGeneratorType
+from builtins import builtin_function_or_method as BuiltinFunctionType
+from builtins import builtin_function_or_method as BuiltinMethodType
+from builtins import cell as CellType
+from builtins import classmethod_descriptor as ClassMethodDescriptorType
+from builtins import code as CodeType
+from builtins import coroutine as CoroutineType
+from builtins import ellipsis as EllipsisType
+from builtins import frame as FrameType
+from builtins import function as FunctionType
+from builtins import function as LambdaType
+from builtins import generator as GeneratorType
+from builtins import getset_descriptor as GetSetDescriptorType
+from builtins import mappingproxy as MappingProxyType
+from builtins import member_descriptor as MemberDescriptorType
+from builtins import method as MethodType
+from builtins import method_descriptor as MethodDescriptorType
+from builtins import module as ModuleType
+from builtins import traceback as TracebackType
+from builtins import wrapper_descriptor as WrapperDescriptorType
+from math import ceil
+from math import cos
+from math import sin
+import os as os
+from rdkit.sping.PDF.pdfgeom import bezierArc
+from rdkit.sping.PDF import pdfmetrics
+from rdkit.sping.PDF import pdfutils
+import sys as sys
+import tempfile as tempfile
+import time as time
+from types import DynamicClassAttribute
+from types import GenericAlias
+from types import SimpleNamespace
+from types import UnionType
+from types import coroutine
+from types import get_original_bases
+from types import new_class
+from types import prepare_class
+from types import resolve_bases
+import zlib as zlib
+__all__: list[str] = ['A4', 'AFMDIR', 'AsyncGeneratorType', 'BuiltinFunctionType', 'BuiltinMethodType', 'CellType', 'ClassMethodDescriptorType', 'CodeType', 'CoroutineType', 'DynamicClassAttribute', 'EllipsisType', 'FrameType', 'FunctionType', 'GeneratorType', 'GenericAlias', 'GetSetDescriptorType', 'LINEEND', 'LambdaType', 'MakeFontDictionary', 'MakeType1Fonts', 'MappingProxyType', 'MemberDescriptorType', 'MethodDescriptorType', 'MethodType', 'ModuleType', 'NoneType', 'NotImplementedType', 'OutputGrabber', 'PDFCatalog', 'PDFDocument', 'PDFError', 'PDFImage', 'PDFInfo', 'PDFLiteral', 'PDFObject', 'PDFOutline', 'PDFPage', 'PDFPageCollection', 'PDFStream', 'PDFType1Font', 'SimpleNamespace', 'StandardEnglishFonts', 'TestStream', 'TracebackType', 'UnionType', 'WrapperDescriptorType', 'bezierArc', 'ceil', 'coroutine', 'cos', 'get_original_bases', 'new_class', 'os', 'pdfmetrics', 'pdfutils', 'pi', 'prepare_class', 'resolve_bases', 'sin', 'sys', 'tempfile', 'testOutputGrabber', 'time', 'zlib']
+class OutputGrabber:
+    """
+    At times we need to put something in the place of standard
+        output.  This grabs stdout, keeps the data, and releases stdout
+        when done.
+        
+        NOT working well enough!
+    """
+    def __del__(self):
+        ...
+    def __init__(self):
+        ...
+    def close(self):
+        ...
+    def getData(self):
+        ...
+    def write(self, x):
+        ...
+class PDFCatalog(PDFObject):
+    """
+    requires RefPages and RefOutlines set
+    """
+    def __init__(self):
+        ...
+    def save(self, file):
+        ...
+class PDFDocument:
+    """
+    Responsible for linking and writing out the whole document.
+        Builds up a list of objects using add(key, object).  Each of these
+        must inherit from PDFObject and be able to write itself into the file.
+        For cross-linking, it provides getPosition(key) which tells you where
+        another object is, or raises a KeyError if not found.  The rule is that
+        objects should only refer ones previously written to file.
+        
+    """
+    def SaveToFile(self, filename):
+        ...
+    def SaveToFileObject(self, fileobj):
+        """
+        Open a file, and ask each object in turn to write itself to
+                the file.  Keep track of the file position at each point for
+                use in the index at the end
+        """
+    def __init__(self):
+        ...
+    def add(self, key, obj):
+        ...
+    def addPage(self, page):
+        """
+        adds page and stream at end.  Maintains pages list
+        """
+    def getAvailableFonts(self):
+        ...
+    def getInternalFontName(self, psfontname):
+        ...
+    def getPosition(self, key):
+        """
+        Tell you where the given object is in the file - used for
+                cross-linking; an object can call self.doc.getPosition("Page001")
+                to find out where the object keyed under "Page001" is stored.
+        """
+    def hasFont(self, psfontname):
+        ...
+    def printPDF(self):
+        """
+        prints it to standard output.  Logs positions for doing trailer
+        """
+    def printTrailer(self):
+        ...
+    def printXref(self):
+        ...
+    def setAuthor(self, author):
+        """
+        embedded in PDF file
+        """
+    def setSubject(self, subject):
+        """
+        embeds in PDF file
+        """
+    def setTitle(self, title):
+        """
+        embeds in PDF file
+        """
+    def writeTrailer(self, f):
+        ...
+    def writeXref(self, f):
+        ...
+class PDFImage(PDFObject):
+    def save(self, file):
+        ...
+class PDFInfo(PDFObject):
+    """
+    PDF documents can have basic information embedded, viewable from
+        File | Document Info in Acrobat Reader.  If this is wrong, you get
+        Postscript errors while printing, even though it does not print.
+    """
+    def __init__(self):
+        ...
+    def save(self, file):
+        ...
+class PDFLiteral(PDFObject):
+    """
+     a ready-made one you wish to quote
+    """
+    def __init__(self, text):
+        ...
+    def save(self, file):
+        ...
+class PDFObject:
+    """
+    Base class for all PDF objects.  In PDF, precise measurement
+        of file offsets is essential, so the usual trick of just printing
+        and redirecting output has proved to give different behaviour on
+        Mac and Windows.  While it might be soluble, I'm taking charge
+        of line ends at the binary level and explicitly writing to a file.
+        The LINEEND constant lets me try CR, LF and CRLF easily to help
+        pin down the problem.
+    """
+    def printPDF(self):
+        ...
+    def save(self, file):
+        """
+        Save its content to an open file
+        """
+class PDFOutline(PDFObject):
+    """
+    null outline, does nothing yet
+    """
+    def __init__(self):
+        ...
+    def save(self, file):
+        ...
+class PDFPage(PDFObject):
+    """
+    The Bastard.  Needs list of Resources etc. Use a standard one for now.
+        It manages a PDFStream object which must be added to the document's list
+        of objects as well.
+    """
+    def __init__(self):
+        ...
+    def clear(self):
+        ...
+    def save(self, file):
+        ...
+    def setCompression(self, onoff = 0):
+        """
+        Turns page compression on or off
+        """
+    def setStream(self, data):
+        ...
+class PDFPageCollection(PDFObject):
+    """
+    presumes PageList attribute set (list of integers)
+    """
+    def __init__(self):
+        ...
+    def save(self, file):
+        ...
+class PDFStream(PDFObject):
+    """
+    Used for the contents of a page
+    """
+    def __init__(self):
+        ...
+    def save(self, file):
+        ...
+    def setStream(self, data):
+        ...
+class PDFType1Font(PDFObject):
+    def __init__(self, key, font):
+        ...
+    def save(self, file):
+        ...
+def MakeFontDictionary(startpos, count):
+    """
+    returns a font dictionary assuming they are all in the file from startpos
+    """
+def MakeType1Fonts():
+    """
+    returns a list of all the standard font objects
+    """
+def testOutputGrabber():
+    ...
+A4: tuple = (595.27, 841.89)
+AFMDIR: str = '.'
+LINEEND: str = '\r\n'
+PDFError: str = 'PDFError'
+StandardEnglishFonts: list = ['Courier', 'Courier-Bold', 'Courier-Oblique', 'Courier-BoldOblique', 'Helvetica', 'Helvetica-Bold', 'Helvetica-Oblique', 'Helvetica-BoldOblique', 'Times-Roman', 'Times-Bold', 'Times-Italic', 'Times-BoldItalic', 'Symbol', 'ZapfDingbats']
+TestStream: str = 'BT /F6 24 Tf 80 672 Td 24 TL (   ) Tj T* ET'
+pi: float = 3.141592653589793

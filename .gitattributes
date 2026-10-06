@@ -1,0 +1,2 @@
+# Preserve the portable distribution byte-for-byte, including vendor files.
+* -text

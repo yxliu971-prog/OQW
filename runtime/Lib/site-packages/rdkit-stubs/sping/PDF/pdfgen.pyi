@@ -1,0 +1,507 @@
+"""
+
+PDFgen is a library to generate PDF files containing text and graphics.  It is the
+foundation for a complete reporting solution in Python.  It is also the
+foundation for piddlePDF, the PDF back end for PIDDLE.
+
+Documentation is a little slim right now; run then look at testpdfgen.py
+to get a clue.
+
+---------- Licence Terms (same as the Python license) -----------------
+(C) Copyright Robinson Analytics 1998-1999.
+
+Permission to use, copy, modify, and distribute this software and its
+documentation for any purpose and without fee is hereby granted, provided
+that the above copyright notice appear in all copies and that both that
+copyright notice and this permission notice appear in supporting
+documentation, and that the name of Robinson Analytics not be used
+in advertising or publicity pertaining to distribution of the software
+without specific, written prior permission.
+
+ROBINSON ANALYTICS LTD. DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS
+SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS,
+IN NO EVENT SHALL ROBINSON ANALYTICS BE LIABLE FOR ANY SPECIAL, INDIRECT
+OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+
+Progress Reports:
+0.82, 1999-10-27, AR:
+        Fixed some bugs on printing to Postscript.  Added 'Text Object'
+        analogous to Path Object to control entry and exit from text mode.
+        Much simpler clipping API.  All verified to export Postscript and
+        redistill.
+        One limitation still - clipping to text paths is fine in Acrobat
+        but not in Postscript (any level)
+
+0.81,1999-10-13, AR:
+        Adding RoundRect; changed all format strings to use %0.2f instead of %s,
+        so we don't get exponentials in the output.
+0.8,1999-10-07, AR:  all changed!
+
+2000-02-07: changed all %0.2f's to %0.4f in order to allow precise ploting of graphs that
+        range between 0 and 1 -cwl
+
+"""
+from __future__ import annotations
+from _io import StringIO
+from builtins import NoneType
+from builtins import NotImplementedType
+from builtins import async_generator as AsyncGeneratorType
+from builtins import builtin_function_or_method as BuiltinFunctionType
+from builtins import builtin_function_or_method as BuiltinMethodType
+from builtins import cell as CellType
+from builtins import classmethod_descriptor as ClassMethodDescriptorType
+from builtins import code as CodeType
+from builtins import coroutine as CoroutineType
+from builtins import ellipsis as EllipsisType
+from builtins import frame as FrameType
+from builtins import function as FunctionType
+from builtins import function as LambdaType
+from builtins import generator as GeneratorType
+from builtins import getset_descriptor as GetSetDescriptorType
+from builtins import mappingproxy as MappingProxyType
+from builtins import member_descriptor as MemberDescriptorType
+from builtins import method as MethodType
+from builtins import method_descriptor as MethodDescriptorType
+from builtins import module as ModuleType
+from builtins import traceback as TracebackType
+from builtins import wrapper_descriptor as WrapperDescriptorType
+from math import ceil
+from math import cos
+from math import sin
+from math import tan
+import os as os
+from rdkit.sping.PDF import pdfdoc
+from rdkit.sping.PDF import pdfgeom
+from rdkit.sping.PDF import pdfmetrics
+from rdkit.sping.PDF import pdfutils
+import sys as sys
+import tempfile as tempfile
+import time as time
+from types import DynamicClassAttribute
+from types import GenericAlias
+from types import SimpleNamespace
+from types import UnionType
+from types import coroutine
+from types import get_original_bases
+from types import new_class
+from types import prepare_class
+from types import resolve_bases
+__all__: list[str] = ['AsyncGeneratorType', 'BuiltinFunctionType', 'BuiltinMethodType', 'Canvas', 'CellType', 'ClassMethodDescriptorType', 'CodeType', 'CoroutineType', 'DynamicClassAttribute', 'EllipsisType', 'FILL_EVEN_ODD', 'FILL_NON_ZERO', 'FrameType', 'FunctionType', 'GeneratorType', 'GenericAlias', 'GetSetDescriptorType', 'LambdaType', 'MappingProxyType', 'MemberDescriptorType', 'MethodDescriptorType', 'MethodType', 'ModuleType', 'NoneType', 'NotImplementedType', 'PATH_OPS', 'PDFError', 'PDFPathObject', 'PDFTextObject', 'SimpleNamespace', 'StringIO', 'TracebackType', 'UnionType', 'WrapperDescriptorType', 'ceil', 'close', 'closeEoFillStroke', 'closeFillStroke', 'closeStroke', 'coroutine', 'cos', 'eoFill', 'eoFillStroke', 'fillStroke', 'get_original_bases', 'new_class', 'newpath', 'nzFill', 'os', 'pdfdoc', 'pdfgeom', 'pdfmetrics', 'pdfutils', 'pi', 'prepare_class', 'resolve_bases', 'sin', 'stroke', 'sys', 'tan', 'tempfile', 'time']
+class Canvas:
+    """
+    This is a low-level interface to the PDF file format.  The plan is to
+        expose the whole pdfgen API through this.  Its drawing functions should have a
+        one-to-one correspondence with PDF functionality.  Unlike PIDDLE, it thinks
+        in terms of RGB values, Postscript font names, paths, and a 'current graphics
+        state'.  Just started development at 5/9/99, not in use yet.
+    
+        
+    """
+    def __init__(self, filename, pagesize = (595.27, 841.89), bottomup = 1):
+        """
+        Most of the attributes are private - we will use set/get methods
+                as the preferred interface.  Default page size is A4.
+        """
+    def _escape(self, s):
+        """
+        PDF escapes are like Python ones, but brackets need slashes before them too.
+                Use Python's repr function and chop off the quotes first
+        """
+    def addLiteral(self, s, escaped = 1):
+        ...
+    def arc(self, x1, y1, x2, y2, startAng = 0, extent = 90):
+        """
+        Contributed to piddlePDF by Robert Kern, 28/7/99.
+                Trimmed down by AR to remove color stuff for pdfgen.canvas and
+                revert to positive coordinates.
+        
+                Draw a partial ellipse inscribed within the rectangle x1,y1,x2,y2,
+                starting at startAng degrees and covering extent degrees.   Angles
+                start with 0 to the right (+x) and increase counter-clockwise.
+                These should have x1<x2 and y1<y2.
+        
+                The algorithm is an elliptical generalization of the formulae in
+                Jim Fitzsimmon's TeX tutorial <URL: http://www.tinaja.com/bezarc1.pdf>.
+        """
+    def beginPath(self):
+        """
+        Returns a fresh path object
+        """
+    def beginText(self, x = 0, y = 0):
+        """
+        Returns a fresh text object
+        """
+    def bezier(self, x1, y1, x2, y2, x3, y3, x4, y4):
+        """
+        Bezier curve with the four given control points
+        """
+    def circle(self, x_cen, y_cen, r, stroke = 1, fill = 0):
+        """
+        special case of ellipse
+        """
+    def clipPath(self, aPath, stroke = 1, fill = 0):
+        """
+        clip as well as drawing
+        """
+    def drawCentredString(self, x, y, text):
+        """
+        Draws a string right-aligned with the y coordinate.  I
+                am British so the spelling is correct, OK?
+        """
+    def drawInlineImage(self, image, x, y, width = None, height = None):
+        """
+        Draw a PIL Image into the specified rectangle.  If width and
+                height are omitted, they are calculated from the image size.
+                Also allow file names as well as images.  This allows a
+                caching mechanism
+        """
+    def drawPath(self, aPath, stroke = 1, fill = 0):
+        """
+        Draw in the mode indicated
+        """
+    def drawRightString(self, x, y, text):
+        """
+        Draws a string right-aligned with the y coordinate
+        """
+    def drawString(self, x, y, text):
+        """
+        Draws a string in the current text styles.
+        """
+    def drawText(self, aTextObject):
+        """
+        Draws a text object
+        """
+    def ellipse(self, x1, y1, x2, y2, stroke = 1, fill = 0):
+        """
+        Uses bezierArc, which conveniently handles 360 degrees -
+                nice touch Robert
+        """
+    def getAvailableFonts(self):
+        """
+        Returns the list of PostScript font names available.
+                Standard set now, but may grow in future with font embedding.
+        """
+    def getPageNumber(self):
+        ...
+    def grid(self, xlist, ylist):
+        """
+        Lays out a grid in current line style.  Suuply list of
+                x an y positions.
+        """
+    def line(self, x1, y1, x2, y2):
+        """
+        As it says
+        """
+    def lines(self, linelist):
+        """
+        As line(), but slightly more efficient for lots of them -
+                one stroke operation and one less function call
+        """
+    def pageHasData(self):
+        """
+        Info function - app can call it after showPage to see if it needs a save
+        """
+    def readJPEGInfo(self, image):
+        """
+        Read width, height and number of components from JPEG file
+        """
+    def rect(self, x, y, width, height, stroke = 1, fill = 0):
+        """
+        draws a rectangle
+        """
+    def restoreState(self):
+        """
+        These need expanding to save/restore Python's state tracking too
+        """
+    def rotate(self, theta):
+        """
+        Canvas.rotate(theta)
+        
+                theta is in degrees.
+        """
+    def roundRect(self, x, y, width, height, radius, stroke = 1, fill = 0):
+        """
+        Draws a rectangle with rounded corners.  The corners are
+                approximately quadrants of a circle, with the given radius.
+        """
+    def save(self, filename = None, fileobj = None):
+        """
+        Saves the pdf document to fileobj or to file with name filename.
+                If holding data, do a showPage() to save them having to.
+        """
+    def saveState(self):
+        """
+        These need expanding to save/restore Python's state tracking too
+        """
+    def scale(self, x, y):
+        ...
+    def setAuthor(self, author):
+        ...
+    def setDash(self, array = list(), phase = 0):
+        """
+        Two notations.  pass two numbers, or an array and phase
+        """
+    def setFillColorRGB(self, r, g, b):
+        ...
+    def setFont(self, psfontname, size, leading = None):
+        """
+        Sets the font.  If leading not specified, defaults to 1.2 x
+                font size. Raises a readable exception if an illegal font
+                is supplied.  Font names are case-sensitive! Keeps track
+                of font anme and size for metrics.
+        """
+    def setLineCap(self, mode):
+        """
+        0=butt,1=round,2=square
+        """
+    def setLineJoin(self, mode):
+        """
+        0=mitre, 1=round, 2=bevel
+        """
+    def setLineWidth(self, width):
+        ...
+    def setMiterLimit(self, limit):
+        ...
+    def setPageCompression(self, onoff = 1):
+        """
+        Possible values 1 or 0 (1 for 'on' is the default).
+                If on, the page data will be compressed, leading to much
+                smaller files, but takes a little longer to create the files.
+                This applies to all subsequent pages, or until setPageCompression()
+                is next called.
+        """
+    def setPageSize(self, size):
+        """
+        accepts a 2-tuple in points for paper size for this
+                and subsequent pages
+        """
+    def setPageTransition(self, effectname = None, duration = 1, direction = 0, dimension = 'H', motion = 'I'):
+        """
+        PDF allows page transition effects for use when giving
+                presentations.  There are six possible effects.  You can
+                just guive the effect name, or supply more advanced options
+                to refine the way it works.  There are three types of extra
+                argument permitted, and here are the allowed values:
+                    direction_arg = [0,90,180,270]
+                    dimension_arg = ['H', 'V']
+                    motion_arg = ['I','O'] (start at inside or outside)
+        
+                This table says which ones take which arguments:
+        
+                PageTransitionEffects = {
+                    'Split': [direction_arg, motion_arg],
+                    'Blinds': [dimension_arg],
+                    'Box': [motion_arg],
+                    'Wipe' : [direction_arg],
+                    'Dissolve' : [],
+                    'Glitter':[direction_arg]
+                    }
+                Have fun!
+        """
+    def setStrokeColorRGB(self, r, g, b):
+        ...
+    def setSubject(self, subject):
+        ...
+    def setTitle(self, title):
+        ...
+    def showPage(self):
+        """
+        This is where the fun happens
+        """
+    def skew(self, alpha, beta):
+        ...
+    def stringWidth(self, text, fontname, fontsize):
+        """
+        gets width of a string in the given font and size
+        """
+    def transform(self, a, b, c, d, e, f):
+        """
+        How can Python track this?
+        """
+    def translate(self, dx, dy):
+        ...
+    def wedge(self, x1, y1, x2, y2, startAng, extent, stroke = 1, fill = 0):
+        """
+        Like arc, but connects to the centre of the ellipse.
+                Most useful for pie charts and PacMan!
+        """
+class PDFError(ValueError):
+    pass
+class PDFPathObject:
+    """
+    Represents a graphic path.  There are certain 'modes' to PDF
+        drawing, and making a separate object to expose Path operations
+        ensures they are completed with no run-time overhead.  Ask
+        the Canvas for a PDFPath with getNewPathObject(); moveto/lineto/
+        curveto wherever you want; add whole shapes; and then add it back
+        into the canvas with one of the relevant operators.
+    
+        Path objects are probably not long, so we pack onto one line
+    """
+    def __init__(self):
+        ...
+    def arc(self, x1, y1, x2, y2, startAng = 0, extent = 90):
+        """
+        Contributed to piddlePDF by Robert Kern, 28/7/99.
+                Draw a partial ellipse inscribed within the rectangle x1,y1,x2,y2,
+                starting at startAng degrees and covering extent degrees.   Angles
+                start with 0 to the right (+x) and increase counter-clockwise.
+                These should have x1<x2 and y1<y2.
+        
+                The algorithm is an elliptical generalization of the formulae in
+                Jim Fitzsimmon's TeX tutorial <URL: http://www.tinaja.com/bezarc1.pdf>.
+        """
+    def arcTo(self, x1, y1, x2, y2, startAng = 0, extent = 90):
+        """
+        Like arc, but draws a line from the current point to
+                the start if the start is not the current point.
+        """
+    def circle(self, x_cen, y_cen, r):
+        """
+        adds a circle to the path
+        """
+    def close(self):
+        """
+        draws a line back to where it started
+        """
+    def curveTo(self, x1, y1, x2, y2, x3, y3):
+        ...
+    def ellipse(self, x, y, width, height):
+        """
+        adds an ellipse to the path
+        """
+    def getCode(self):
+        """
+        pack onto one line; used internally
+        """
+    def lineTo(self, x, y):
+        ...
+    def moveTo(self, x, y):
+        ...
+    def rect(self, x, y, width, height):
+        """
+        Adds a rectangle to the path
+        """
+class PDFTextObject:
+    """
+    PDF logically separates text and graphics drawing; you can
+        change the coordinate systems for text and graphics independently.
+        If you do drawings while in text mode, they appear in the right places
+        on the page in Acrobat Reader, bur when you export Postscript to
+        a printer the graphics appear relative to the text coordinate
+        system.  I regard this as a bug in how Acrobat exports to PostScript,
+        but this is the workaround.  It forces the user to separate text
+        and graphics.  To output text, ask te canvas for a text object
+        with beginText(x, y).  Do not construct one directly. It keeps
+        track of x and y coordinates relative to its origin.
+    """
+    def __init__(self, canvas, x = 0, y = 0):
+        ...
+    def getCode(self):
+        """
+        pack onto one line; used internally
+        """
+    def getCursor(self):
+        """
+        Returns current text position relative to the last origin.
+        """
+    def getX(self):
+        """
+        Returns current x position relative to the last origin.
+        """
+    def getY(self):
+        """
+        Returns current y position relative to the last origin.
+        """
+    def moveCursor(self, dx, dy):
+        """
+        Moves to a point dx, dy away from the start of the
+                current line - NOT from the current point! So if
+                you call it in mid-sentence, watch out.
+        """
+    def setCharSpace(self, charSpace):
+        """
+        Adjusts inter-character spacing
+        """
+    def setFillColorRGB(self, r, g, b):
+        ...
+    def setFont(self, psfontname, size, leading = None):
+        """
+        Sets the font.  If leading not specified, defaults to 1.2 x
+                font size. Raises a readable exception if an illegal font
+                is supplied.  Font names are case-sensitive! Keeps track
+                of font anme and size for metrics.
+        """
+    def setHorizScale(self, horizScale):
+        """
+        Stretches text out horizontally
+        """
+    def setLeading(self, leading):
+        """
+        How far to move down at the end of a line.
+        """
+    def setRise(self, rise):
+        """
+        Move text baseline up or down to allow superscrip/subscripts
+        """
+    def setStrokeColorRGB(self, r, g, b):
+        ...
+    def setTextOrigin(self, x, y):
+        ...
+    def setTextRenderMode(self, mode):
+        """
+        Set the text rendering mode.
+        
+                0 = Fill text
+                1 = Stroke text
+                2 = Fill then stroke
+                3 = Invisible
+                4 = Fill text and add to clipping path
+                5 = Stroke text and add to clipping path
+                6 = Fill then stroke and add to clipping path
+                7 = Add to clipping path
+        """
+    def setTextTransform(self, a, b, c, d, e, f):
+        """
+        Like setTextOrigin, but does rotation, scaling etc.
+        """
+    def setWordSpace(self, wordSpace):
+        """
+        Adjust inter-word spacing.  This can be used
+                to flush-justify text - you get the width of the
+                words, and add some space between them.
+        """
+    def textLine(self, text = ''):
+        """
+        prints string at current point, text cursor moves down.
+                Can work with no argument to simply move the cursor down.
+        """
+    def textLines(self, stuff, trim = 1):
+        """
+        prints multi-line or newlined strings, moving down.  One
+                common use is to quote a multi-line block in your Python code;
+                since this may be indented, by default it trims whitespace
+                off each line and from the beginning; set trim=0 to preserve
+                whitespace.
+        """
+    def textOut(self, text):
+        """
+        prints string at current point, text cursor moves across
+        """
+FILL_EVEN_ODD: int = 0
+FILL_NON_ZERO: int = 1
+PATH_OPS: dict = {(0, 0, 0): 'n', (0, 0, 1): 'n', (1, 0, 0): 'S', (1, 0, 1): 'S', (0, 1, 0): 'f*', (0, 1, 1): 'f', (1, 1, 0): 'B*', (1, 1, 1): 'B'}
+close: str = 'h'
+closeEoFillStroke: str = 'b*'
+closeFillStroke: str = 'b'
+closeStroke: str = 's'
+eoFill: str = 'f*'
+eoFillStroke: str = 'B*'
+fillStroke: str = 'B'
+newpath: str = 'n'
+nzFill: str = 'f'
+pi: float = 3.141592653589793
+stroke: str = 'S'

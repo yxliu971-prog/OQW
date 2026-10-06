@@ -1,0 +1,481 @@
+"""
+Module containing basic definitions for wrapped C++ code
+
+"""
+from __future__ import annotations
+import typing
+__all__: list[str] = ['AttachFileToLog', 'BlockLogs', 'CaptureErrorLog', 'DisableLog', 'EnableLog', 'LogDebugMsg', 'LogErrorMsg', 'LogInfoMsg', 'LogMessage', 'LogStatus', 'LogToCppStreams', 'LogToPythonLogger', 'LogToPythonStderr', 'LogWarningMsg', 'MatchTypeVect', 'SeedRandomNumberGenerator', 'UnsignedLong_Vect', 'VectorOfStringVectors', 'WrapLogs', 'boostVersion', 'ostream', 'rdkitBuild', 'rdkitVersion', 'std_ostream', 'streambuf']
+class BlockLogs(Boost.Python.instance):
+    """
+    Temporarily block logs from outputting while this instance is in scope.
+    """
+    __instance_size__: typing.ClassVar[int] = 32
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __enter__(self) -> BlockLogs:
+        """
+            C++ signature :
+                class BlockLogs * __ptr64 __enter__(class BlockLogs {lvalue})
+        """
+    def __exit__(self, exc_type: typing.Any, exc_value: typing.Any, traceback: typing.Any) -> None:
+        """
+            C++ signature :
+                void __exit__(class BlockLogs {lvalue},class boost::python::api::object,class boost::python::api::object,class boost::python::api::object)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+class CaptureErrorLog(Boost.Python.instance):
+    """
+    Captures messages from rdErrorLog while this instance is in scope.
+    Can be used as a context manager. The ``messages`` property is
+    accessible both inside the context and after it exits.
+    Nesting is supported: inner captures shadow outer ones.
+    
+    Example::
+    
+      with rdBase.CaptureErrorLog() as capture:
+          rdkit_function_that_may_fail()
+      print(capture.messages)
+    """
+    __instance_size__: typing.ClassVar[int] = 64
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __enter__(self) -> CaptureErrorLog:
+        """
+            C++ signature :
+                struct PyCaptureErrorLog * __ptr64 __enter__(struct PyCaptureErrorLog {lvalue})
+        """
+    def __exit__(self, exc_type: typing.Any, exc_value: typing.Any, traceback: typing.Any) -> None:
+        """
+            C++ signature :
+                void __exit__(struct PyCaptureErrorLog {lvalue},class boost::python::api::object,class boost::python::api::object,class boost::python::api::object)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    @property
+    def messages(*args, **kwargs):
+        """
+        Messages captured from rdErrorLog.
+        """
+class MatchTypeVect(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 48
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+    def append(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void append(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue},class boost::python::api::object)
+        """
+    def extend(self, other: typing.Any) -> None:
+        """
+            C++ signature :
+                void extend(class std::vector<struct std::pair<int,int>,class std::allocator<struct std::pair<int,int> > > {lvalue},class boost::python::api::object)
+        """
+class UnsignedLong_Vect(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 48
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+    def append(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void append(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue},class boost::python::api::object)
+        """
+    def extend(self, other: typing.Any) -> None:
+        """
+            C++ signature :
+                void extend(class std::vector<unsigned __int64,class std::allocator<unsigned __int64> > {lvalue},class boost::python::api::object)
+        """
+class VectorOfStringVectors(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 48
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+    def append(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void append(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue},class boost::python::api::object)
+        """
+    def extend(self, other: typing.Any) -> None:
+        """
+            C++ signature :
+                void extend(class std::vector<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >,class std::allocator<class std::vector<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::allocator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > > > > {lvalue},class boost::python::api::object)
+        """
+class _listint(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 40
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::list<int,class std::allocator<int> > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::list<int,class std::allocator<int> > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::list<int,class std::allocator<int> > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::list<int,class std::allocator<int> > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::list<int,class std::allocator<int> > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+class _vectdouble(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 48
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::vector<double,class std::allocator<double> > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::vector<double,class std::allocator<double> > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::vector<double,class std::allocator<double> > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::vector<double,class std::allocator<double> > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::vector<double,class std::allocator<double> > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+    def append(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void append(class std::vector<double,class std::allocator<double> > {lvalue},class boost::python::api::object)
+        """
+    def extend(self, other: typing.Any) -> None:
+        """
+            C++ signature :
+                void extend(class std::vector<double,class std::allocator<double> > {lvalue},class boost::python::api::object)
+        """
+class _vectint(Boost.Python.instance):
+    __instance_size__: typing.ClassVar[int] = 48
+    @staticmethod
+    def __iter__(vect):
+        ...
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __contains__(self, item: typing.Any) -> bool:
+        """
+            C++ signature :
+                bool __contains__(class std::vector<int,class std::allocator<int> > {lvalue},struct _object * __ptr64)
+        """
+    def __delitem__(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void __delitem__(class std::vector<int,class std::allocator<int> > {lvalue},struct _object * __ptr64)
+        """
+    def __getitem__(self, item: typing.Any) -> typing.Any:
+        """
+            C++ signature :
+                class boost::python::api::object __getitem__(struct boost::python::back_reference<class std::vector<int,class std::allocator<int> > & __ptr64>,struct _object * __ptr64)
+        """
+    def __init__(self) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64)
+        """
+    def __len__(self) -> int:
+        """
+            C++ signature :
+                unsigned __int64 __len__(class std::vector<int,class std::allocator<int> > {lvalue})
+        """
+    def __setitem__(self, item: typing.Any, value: typing.Any) -> None:
+        """
+            C++ signature :
+                void __setitem__(class std::vector<int,class std::allocator<int> > {lvalue},struct _object * __ptr64,struct _object * __ptr64)
+        """
+    def append(self, item: typing.Any) -> None:
+        """
+            C++ signature :
+                void append(class std::vector<int,class std::allocator<int> > {lvalue},class boost::python::api::object)
+        """
+    def extend(self, other: typing.Any) -> None:
+        """
+            C++ signature :
+                void extend(class std::vector<int,class std::allocator<int> > {lvalue},class boost::python::api::object)
+        """
+class ostream(std_ostream):
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __init__(self, python_file_obj: typing.Any, buffer_size: int = 0) -> None:
+        """
+            C++ signature :
+                void __init__(struct _object * __ptr64,class boost::python::api::object {lvalue} [,unsigned __int64=0])
+        """
+class std_ostream(Boost.Python.instance):
+    @staticmethod
+    def __init__(*args, **kwargs):
+        """
+        Raises an exception
+        This class cannot be instantiated from Python
+        """
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+class streambuf(Boost.Python.instance):
+    @staticmethod
+    def __reduce__(*args, **kwargs):
+        ...
+    def __init__(self, python_file_obj: typing.Any, buffer_size: int = 0) -> None:
+        """
+            documentation
+        
+            C++ signature :
+                void __init__(struct _object * __ptr64,class boost::python::api::object {lvalue} [,unsigned __int64=0])
+        """
+def AttachFileToLog(spec: str, filename: str, delay: int = 100) -> None:
+    """
+        Causes the log to write to a file
+    
+        C++ signature :
+            void AttachFileToLog(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > [,int=100])
+    """
+def DisableLog(spec: str) -> None:
+    """
+        C++ signature :
+            void DisableLog(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def EnableLog(spec: str) -> None:
+    """
+        C++ signature :
+            void EnableLog(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def LogDebugMsg(msg: str) -> None:
+    """
+        Log a message to the RDKit debug logs
+    
+        C++ signature :
+            void LogDebugMsg(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def LogErrorMsg(msg: str) -> None:
+    """
+        Log a message to the RDKit error logs
+    
+        C++ signature :
+            void LogErrorMsg(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def LogInfoMsg(msg: str) -> None:
+    """
+        Log a message to the RDKit info logs
+    
+        C++ signature :
+            void LogInfoMsg(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def LogMessage(spec: str, msg: str) -> None:
+    """
+        Log a message to any rdApp.* log
+    
+        C++ signature :
+            void LogMessage(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def LogStatus() -> str:
+    """
+        C++ signature :
+            class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > LogStatus()
+    """
+def LogToCppStreams() -> None:
+    """
+        Initialize RDKit logs with C++ streams
+    
+        C++ signature :
+            void LogToCppStreams()
+    """
+def LogToPythonLogger() -> None:
+    """
+        Initialize RDKit logs with Python's logging module
+    
+        C++ signature :
+            void LogToPythonLogger()
+    """
+def LogToPythonStderr() -> None:
+    """
+        Initialize RDKit logs with Python's stderr stream
+    
+        C++ signature :
+            void LogToPythonStderr()
+    """
+def LogWarningMsg(msg: str) -> None:
+    """
+        Log a message to the RDKit warning logs
+    
+        C++ signature :
+            void LogWarningMsg(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)
+    """
+def SeedRandomNumberGenerator(seed: int) -> None:
+    """
+        Provides a seed to the standard C random number generator
+        This does not affect pure Python code, but is relevant to some of the RDKit C++ components.
+    
+        C++ signature :
+            void SeedRandomNumberGenerator(unsigned int)
+    """
+def WrapLogs() -> None:
+    """
+        Tee the RDKit logs to Python's stderr stream
+    
+        C++ signature :
+            void WrapLogs()
+    """
+def _version() -> str:
+    """
+        Deprecated, use the constant rdkitVersion instead
+    
+        C++ signature :
+            class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > _version()
+    """
+_iostreamsEnabled: bool = True
+_multithreadedEnabled: bool = True
+_serializationEnabled: bool = True
+boostVersion: str = '1_85'
+rdkitBuild: str = 'Windows|10.0.20348||MSVC|64-bit'
+rdkitVersion: str = '2026.03.6'

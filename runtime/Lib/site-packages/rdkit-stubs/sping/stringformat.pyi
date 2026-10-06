@@ -1,0 +1,142 @@
+"""
+
+Module StringFormat
+The StringFormat module allows for character-by-character formatting of
+strings. It imitates the SPING string drawing and string metrics
+interface. The string formatting is done with specialized XML syntax
+within the string. Therefore, the interface for the StringFormat module
+consists of wrapper functions for the SPING string interface and
+various XML tags and characters.
+
+StringFormat functions
+
+       drawString(canvas, s, x, y, [font], [color], [angle])
+       stringWidth(canvas, s, [font])
+       fontHeight(canvas, [font])
+       fontAscent(canvas, [font])
+       fontDescent(canvas, [font])
+StringFormat XML tags
+
+       <b> </b> - bold
+       <i> </i> - italics
+       <u> </u> - underline
+       <super> </super> - superscript
+       <sub> </sub> - subscript
+
+StringFormat XML characters
+
+       Greek Letter Symbols as specified in MathML
+"""
+from __future__ import annotations
+import html.parser
+from html.parser import HTMLParser
+import math as math
+from rdkit.sping.PDF.pidPDF import PDFCanvas
+import rdkit.sping.colors
+from rdkit.sping.pid import Font
+__all__: list[str] = ['Font', 'HTMLParser', 'PDFCanvas', 'StringFormatter', 'StringSegment', 'allTagCombos', 'blue', 'drawString', 'fontAscent', 'fontDescent', 'fontHeight', 'greekchars', 'green', 'math', 'red', 'rotateXY', 'sizedelta', 'stringWidth', 'stringformatTest', 'subFraction', 'superFraction', 'test1', 'test2']
+class StringFormatter(html.parser.HTMLParser):
+    def __init__(self):
+        ...
+    def end_b(self):
+        ...
+    def end_greek(self):
+        ...
+    def end_i(self):
+        ...
+    def end_sub(self):
+        ...
+    def end_super(self):
+        ...
+    def end_u(self):
+        ...
+    def handle_charref(self, name):
+        ...
+    def handle_data(self, data):
+        """
+        Creates an intermediate representation of string segments.
+        """
+    def handle_endtag(self, tag):
+        ...
+    def handle_entityref(self, name):
+        ...
+    def handle_startendtag(self, tag, attributes):
+        ...
+    def handle_starttag(self, tag, attributes):
+        ...
+    def parseSegments(self, s):
+        """
+        Given a formatted string will return a list of                 StringSegment objects with their calculated widths.
+        """
+    def start_b(self, attributes):
+        ...
+    def start_greek(self, attributes, letter):
+        ...
+    def start_i(self, attributes):
+        ...
+    def start_sub(self, attributes):
+        ...
+    def start_super(self, attributes):
+        ...
+    def start_u(self, attributes):
+        ...
+class StringSegment:
+    """
+    class StringSegment contains the intermediate representation of string
+            segments as they are being parsed by the XMLParser.
+            
+    """
+    def __init__(self):
+        ...
+    def calcNewFont(self, font):
+        """
+        Given a font (does not accept font==None), creates a                 new font based on the format of this text segment.
+        """
+    def calcNewY(self, font, y):
+        """
+        Returns a new y coordinate depending on its                 whether the string is a sub and super script.
+        """
+    def dump(self):
+        ...
+def allTagCombos(canvas, x, y, font = None, color = None, angle = 0):
+    """
+    Try out all tags and various combinations of them.
+            Starts at given x,y and returns possible next (x,y).
+    """
+def drawString(canvas, s, x, y, font = None, color = None, angle = 0):
+    """
+    Draw a formatted string starting at location x,y in canvas.
+    """
+def fontAscent(canvas, font = None):
+    """
+    Find the ascent (height above base) of the given font.
+    """
+def fontDescent(canvas, font = None):
+    """
+    Find the descent (extent below base) of the given font.
+    """
+def fontHeight(canvas, font = None):
+    """
+    Find the total height (ascent + descent) of the given font.
+    """
+def rotateXY(x, y, theta):
+    """
+    Rotate (x,y) by theta degrees.  Got transformation         from page 299 in linear algebra book.
+    """
+def stringWidth(canvas, s, font = None):
+    """
+    Return the logical width of the string if it were drawn         in the current font (defaults to canvas.font).
+    """
+def stringformatTest():
+    ...
+def test1():
+    ...
+def test2():
+    ...
+blue: rdkit.sping.colors.Color  # value = Color(0.00,0.00,1.00)
+greekchars: dict = {'alpha': 'a', 'beta': 'b', 'chi': 'c', 'Delta': 'D', 'delta': 'd', 'epsiv': 'e', 'eta': 'h', 'Gamma': 'G', 'gamma': 'g', 'iota': 'i', 'kappa': 'k', 'Lambda': 'L', 'lambda': 'l', 'mu': 'm', 'nu': 'n', 'Omega': 'W', 'omega': 'w', 'omicron': 'x', 'Phi': 'F', 'phi': 'f', 'phiv': 'j', 'Pi': 'P', 'pi': 'p', 'piv': 'v', 'Psi': 'Y', 'psi': 'y', 'rho': 'r', 'Sigma': 'S', 'sigma': 's', 'sigmav': 'V', 'tau': 't', 'Theta': 'Q', 'theta': 'q', 'thetav': 'j', 'Xi': 'X', 'xi': 'x', 'zeta': 'z'}
+green: rdkit.sping.colors.Color  # value = Color(0.00,0.50,0.00)
+red: rdkit.sping.colors.Color  # value = Color(1.00,0.00,0.00)
+sizedelta: int = 2
+subFraction: float = 0.5
+superFraction: float = 0.5

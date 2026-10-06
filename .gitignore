@@ -1,0 +1,19 @@
+# Personal data is created from the public seed on first launch.
+/data/*
+!/data/public-seed.sqlite3
+/logs/
+/备份/
+__pycache__/
+*.py[co]
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+.env
+.env.*
+!.env.example
+.venv/
+node_modules/
+.pytest_cache/
+.ruff_cache/
+Thumbs.db
+Desktop.ini

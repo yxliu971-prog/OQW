@@ -1,0 +1,37 @@
+"""
+Module containing functions to generate hashes for molecules
+"""
+from __future__ import annotations
+import typing
+__all__: list[str] = ['HashFunction', 'MolHash', 'excludeFromTautomerismProp']
+class HashFunction(Boost.Python.enum):
+    AnonymousGraph: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.AnonymousGraph
+    ArthorSubstructureOrder: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.ArthorSubstructureOrder
+    AtomBondCounts: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.AtomBondCounts
+    CanonicalSmiles: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.CanonicalSmiles
+    DegreeVector: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.DegreeVector
+    ElementGraph: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.ElementGraph
+    ExtendedMurcko: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.ExtendedMurcko
+    HetAtomProtomer: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomer
+    HetAtomProtomerv2: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomerv2
+    HetAtomTautomer: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomer
+    HetAtomTautomerv2: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomerv2
+    Mesomer: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.Mesomer
+    MolFormula: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.MolFormula
+    MurckoScaffold: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.MurckoScaffold
+    NetCharge: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.NetCharge
+    RedoxPair: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.RedoxPair
+    Regioisomer: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.Regioisomer
+    SmallWorldIndexBR: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBR
+    SmallWorldIndexBRL: typing.ClassVar[HashFunction]  # value = rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBRL
+    __slots__: typing.ClassVar[tuple] = tuple()
+    names: typing.ClassVar[dict]  # value = {'AnonymousGraph': rdkit.Chem.rdMolHash.HashFunction.AnonymousGraph, 'ElementGraph': rdkit.Chem.rdMolHash.HashFunction.ElementGraph, 'CanonicalSmiles': rdkit.Chem.rdMolHash.HashFunction.CanonicalSmiles, 'MurckoScaffold': rdkit.Chem.rdMolHash.HashFunction.MurckoScaffold, 'ExtendedMurcko': rdkit.Chem.rdMolHash.HashFunction.ExtendedMurcko, 'MolFormula': rdkit.Chem.rdMolHash.HashFunction.MolFormula, 'AtomBondCounts': rdkit.Chem.rdMolHash.HashFunction.AtomBondCounts, 'DegreeVector': rdkit.Chem.rdMolHash.HashFunction.DegreeVector, 'Mesomer': rdkit.Chem.rdMolHash.HashFunction.Mesomer, 'HetAtomTautomer': rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomer, 'HetAtomProtomer': rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomer, 'RedoxPair': rdkit.Chem.rdMolHash.HashFunction.RedoxPair, 'Regioisomer': rdkit.Chem.rdMolHash.HashFunction.Regioisomer, 'NetCharge': rdkit.Chem.rdMolHash.HashFunction.NetCharge, 'SmallWorldIndexBR': rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBR, 'SmallWorldIndexBRL': rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBRL, 'ArthorSubstructureOrder': rdkit.Chem.rdMolHash.HashFunction.ArthorSubstructureOrder, 'HetAtomTautomerv2': rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomerv2, 'HetAtomProtomerv2': rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomerv2}
+    values: typing.ClassVar[dict]  # value = {1: rdkit.Chem.rdMolHash.HashFunction.AnonymousGraph, 2: rdkit.Chem.rdMolHash.HashFunction.ElementGraph, 3: rdkit.Chem.rdMolHash.HashFunction.CanonicalSmiles, 4: rdkit.Chem.rdMolHash.HashFunction.MurckoScaffold, 5: rdkit.Chem.rdMolHash.HashFunction.ExtendedMurcko, 6: rdkit.Chem.rdMolHash.HashFunction.MolFormula, 7: rdkit.Chem.rdMolHash.HashFunction.AtomBondCounts, 8: rdkit.Chem.rdMolHash.HashFunction.DegreeVector, 9: rdkit.Chem.rdMolHash.HashFunction.Mesomer, 10: rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomer, 11: rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomer, 12: rdkit.Chem.rdMolHash.HashFunction.RedoxPair, 13: rdkit.Chem.rdMolHash.HashFunction.Regioisomer, 14: rdkit.Chem.rdMolHash.HashFunction.NetCharge, 15: rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBR, 16: rdkit.Chem.rdMolHash.HashFunction.SmallWorldIndexBRL, 17: rdkit.Chem.rdMolHash.HashFunction.ArthorSubstructureOrder, 18: rdkit.Chem.rdMolHash.HashFunction.HetAtomTautomerv2, 19: rdkit.Chem.rdMolHash.HashFunction.HetAtomProtomerv2}
+def MolHash(mol: Mol, func: HashFunction, useCxSmiles: bool = False, cxFlagsToSkip: int = 0) -> str:
+    """
+        Generate a hash for a molecule. The func argument determines which hash is generated.
+    
+        C++ signature :
+            class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > MolHash(class RDKit::ROMol,enum RDKit::MolHash::HashFunction [,bool=False [,unsigned int=0]])
+    """
+excludeFromTautomerismProp: str = '_MolHashExcludeFromTautomerism'

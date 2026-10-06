@@ -1,0 +1,9 @@
+from __future__ import annotations
+from rdkit import Chem
+import rdkit.Chem.rdmolfiles
+import sys as sys
+import warnings as warnings
+__all__: list[str] = ['Chem', 'FastSDMolSupplier', 'sys', 'warnings']
+class FastSDMolSupplier(rdkit.Chem.rdmolfiles.SDMolSupplier):
+    pass
+__warningregistry__: dict = {'version': 0}

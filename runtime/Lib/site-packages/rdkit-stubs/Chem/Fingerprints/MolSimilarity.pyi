@@ -1,0 +1,50 @@
+"""
+ utility functionality for molecular similarity
+ includes a command line app for screening databases
+
+
+Sample Usage:
+
+  python MolSimilarity.py  -d data.gdb -t daylight_sig --idName="Mol_ID"       --topN=100 --smiles='c1(C=O)ccc(Oc2ccccc2)cc1' --smilesTable=raw_dop_data       --smilesName="structure" -o results.csv
+
+"""
+from __future__ import annotations
+import pickle as pickle
+from rdkit import Chem
+from rdkit.Chem.Fingerprints import DbFpSupplier
+from rdkit.Chem.Fingerprints import FingerprintMols
+from rdkit import DataStructs
+from rdkit.DataStructs.TopNContainer import TopNContainer
+import rdkit.Dbase.DbConnection
+from rdkit.Dbase.DbConnection import DbConnect
+from rdkit.Dbase import DbModule
+from rdkit.Dbase import DbResultSet
+__all__: list[str] = ['Chem', 'DataStructs', 'DbConnect', 'DbFpSupplier', 'DbModule', 'DbResultSet', 'FingerprintMols', 'GetFingerprints', 'ScreenFingerprints', 'ScreenFromDetails', 'ScreenInDb', 'TopNContainer', 'pickle']
+def GetFingerprints(details):
+    """
+     returns an iterable sequence of fingerprints
+      each fingerprint will have a _fieldsFromDb member whose first entry is
+      the id.
+    
+      
+    """
+def ScreenFingerprints(details, data, mol = None, probeFp = None):
+    """
+     Returns a list of results
+    
+      
+    """
+def ScreenFromDetails(details, mol = None):
+    """
+     Returns a list of results
+    
+      
+    """
+def ScreenInDb(details, mol):
+    ...
+def _ConnectToDatabase(details) -> rdkit.Dbase.DbConnection.DbConnect:
+    ...
+def _ConstructSQL(details, extraFields = ''):
+    ...
+_dataSeq = None
+_usageDoc: str = '\nUsage: MolSimilarity.py [args] <fName>\n\n  If <fName> is provided and no tableName is specified (see below),\n  data will be read from the pickled file <fName>.  This file should\n  contain a series of pickled (ID,fingerprint) tuples.\n\n  NOTE: at the moment the user is responsible for ensuring that the\n  fingerprint parameters given at run time (used to fingerprint the\n  probe molecule) match those used to generate the input fingerprints.\n\n  Command line arguments are:\n    - --smiles=val: sets the SMILES for the input molecule.  This is\n      a required argument.\n\n    - -d _dbName_: set the name of the database from which\n      to pull input fingerprint information.\n\n    - -t _tableName_: set the name of the database table\n      from which to pull input fingerprint information\n\n    - --smilesTable=val: sets the name of the database table\n      which contains SMILES for the input fingerprints.  If this\n      information is provided along with smilesName (see below),\n      the output file will contain SMILES data\n\n    - --smilesName=val: sets the name of the SMILES column\n      in the input database.  Default is *SMILES*.\n\n    - --topN=val: sets the number of results to return.\n      Default is *10*.\n\n    - --thresh=val: sets the similarity threshold.\n\n    - --idName=val: sets the name of the id column in the input\n      database.  Default is *ID*.\n\n    - -o _outFileName_:  name of the output file (output will\n      be a CSV file with one line for each of the output molecules\n\n    - --dice: use the DICE similarity metric instead of Tanimoto\n\n    - --cosine: use the cosine similarity metric instead of Tanimoto\n\n    - --fpColName=val: name to use for the column which stores\n      fingerprints (in pickled format) in the output db table.\n      Default is *AutoFragmentFP*\n\n    - --minPath=val:  minimum path length to be included in\n      fragment-based fingerprints. Default is *1*.\n\n    - --maxPath=val:  maximum path length to be included in\n      fragment-based fingerprints. Default is *7*.\n\n    - --nBitsPerHash: number of bits to be set in the output\n      fingerprint for each fragment. Default is *4*.\n\n    - --discrim: use of path-based discriminators to hash bits.\n      Default is *false*.\n\n    - -V: include valence information in the fingerprints\n      Default is *false*.\n\n    - -H: include Hs in the fingerprint\n      Default is *false*.\n\n    - --useMACCS: use the public MACCS keys to do the fingerprinting\n      (instead of a daylight-type fingerprint)\n\n\n'

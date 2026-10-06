@@ -1,0 +1,132 @@
+"""
+Module containing classes and functions for working with ChemDraw files.
+"""
+from __future__ import annotations
+import typing
+__all__: list[str] = ['CDXFormat', 'MolToChemDrawBlock', 'MolsFromChemDrawBlock', 'MolsFromChemDrawFile', 'NeedsCleanPolicy', 'ReactionsFromChemDrawBlock', 'ReactionsFromChemDrawFile']
+class CDXFormat(Boost.Python.enum):
+    CDX: typing.ClassVar[CDXFormat]  # value = rdkit.Chem.rdChemDraw.CDXFormat.CDX
+    CDXML: typing.ClassVar[CDXFormat]  # value = rdkit.Chem.rdChemDraw.CDXFormat.CDXML
+    __slots__: typing.ClassVar[tuple] = tuple()
+    names: typing.ClassVar[dict]  # value = {'CDX': rdkit.Chem.rdChemDraw.CDXFormat.CDX, 'CDXML': rdkit.Chem.rdChemDraw.CDXFormat.CDXML}
+    values: typing.ClassVar[dict]  # value = {1: rdkit.Chem.rdChemDraw.CDXFormat.CDX, 2: rdkit.Chem.rdChemDraw.CDXFormat.CDXML}
+class NeedsCleanPolicy(Boost.Python.enum):
+    TrustExplicitHydrogens: typing.ClassVar[NeedsCleanPolicy]  # value = rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustExplicitHydrogens
+    TrustSource: typing.ClassVar[NeedsCleanPolicy]  # value = rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustSource
+    __slots__: typing.ClassVar[tuple] = tuple()
+    names: typing.ClassVar[dict]  # value = {'TrustSource': rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustSource, 'TrustExplicitHydrogens': rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustExplicitHydrogens}
+    values: typing.ClassVar[dict]  # value = {0: rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustSource, 1: rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustExplicitHydrogens}
+def MolToChemDrawBlock(mol: Mol, format: CDXFormat = ...) -> str:
+    """
+        Convert a molecule into a chemdraw string using the specified format
+        
+             ARGUMENTS:
+        
+               - mol: the molecule to convert
+        
+               - format: The ChemDraw format to use, CDXML/CDX [default CDXML]
+        
+             RETURNS:
+               an iterator of parsed ChemicalReaction objects.
+    
+        C++ signature :
+            class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > MolToChemDrawBlock(class RDKit::ROMol [,enum RDKit::v2::CDXFormat=rdkit.Chem.rdChemDraw.CDXFormat.CDXML])
+    """
+def MolsFromChemDrawBlock(block: str, sanitize: bool = True, removeHs: bool = True, needsCleanPolicy: NeedsCleanPolicy = ...) -> typing.Any:
+    """
+        Extract all molecules from a ChemDraw file.
+        
+             Note that the ChemDraw format is large and complex, the RDKit doesn't support
+             full functionality, just the base ones required for molecule and
+             reaction parsing.
+        
+             ARGUMENTS:
+        
+               - block: the CDX/CDXML block
+        
+               - sanitize: if True, sanitize the molecules [default True]
+        
+               - removeHs: if True, convert explicit Hs into implicit Hs. [default True]
+        
+               - needsCleanPolicy: how to handle `NeedsClean` hydrogen metadata.
+                `TrustSource` honors `NeedsClean` by allowing sanitization to
+                recompute hydrogens. `TrustExplicitHydrogens` preserves the literal
+                source metadata when sanitize is True. [default TrustSource]
+        
+             RETURNS:
+               a tuple of parsed Mol objects.
+    
+        C++ signature :
+            class boost::python::api::object MolsFromChemDrawBlock(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > [,bool=True [,bool=True [,enum RDKit::v2::NeedsCleanPolicy=rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustSource]]])
+    """
+def MolsFromChemDrawFile(filename: typing.Any, sanitize: bool = True, removeHs: bool = True, needsCleanPolicy: NeedsCleanPolicy = ...) -> tuple:
+    """
+        Extract all molecules from a ChemDraw file.
+        
+             Note that the ChemDraw format is large and complex, the RDKit doesn't support
+             full functionality, just the base ones required for molecule and
+             reaction parsing.
+        
+             ARGUMENTS:
+        
+               - filename: the chemdraw filename (.cdx/.cdxml)
+        
+               - sanitize: if True, sanitize the molecules [default True]
+        
+               - removeHs: if True, convert explicit Hs into implicit Hs. [default True]
+        
+               - needsCleanPolicy: how to handle `NeedsClean` hydrogen metadata.
+                `TrustSource` honors `NeedsClean` by allowing sanitization to
+                recompute hydrogens. `TrustExplicitHydrogens` preserves the literal
+                source metadata when sanitize is True. [default TrustSource]
+        
+             RETURNS:
+               a tuple of parsed Mol objects.
+    
+        C++ signature :
+            class boost::python::tuple MolsFromChemDrawFile(class boost::python::api::object [,bool=True [,bool=True [,enum RDKit::v2::NeedsCleanPolicy=rdkit.Chem.rdChemDraw.NeedsCleanPolicy.TrustSource]]])
+    """
+def ReactionsFromChemDrawBlock(rxnblock: typing.Any, sanitize: bool = False, removeHs: bool = False) -> typing.Any:
+    """
+        Extract all reactions from a ChemDraw text block.
+        
+             Note that the ChemDraw format is large and complex, the RDKit doesn't support
+             full functionality, just the base ones required for molecule and
+             reaction parsing.
+        
+             ARGUMENTS:
+        
+               - filename: the chemdraw filename (.cdx/.cdxml)
+        
+               - sanitize: if True, sanitize the molecules [default True]
+        
+               - removeHs: if True, convert explicit Hs into implicit Hs. [default True]
+        
+             RETURNS:
+               a tuple of parsed ChemicalReaction objects.
+    
+        C++ signature :
+            class boost::python::api::object ReactionsFromChemDrawBlock(class boost::python::api::object [,bool=False [,bool=False]])
+    """
+def ReactionsFromChemDrawFile(filename: str, sanitize: bool = False, removeHs: bool = False) -> typing.Any:
+    """
+        Extract all reactions from a ChemDraw file.
+        
+             Note that the ChemDraw format is large and complex, the RDKit doesn't support
+             full functionality, just the base ones required for molecule and
+             reaction parsing.
+        
+             ARGUMENTS:
+        
+               - filename: the chemdraw filename (.cdx/.cdxml)
+        
+               - sanitize: if True, sanitize the molecules [default True]
+        
+               - removeHs: if True, convert explicit Hs into implicit Hs. [default True]
+        
+             RETURNS:
+               a tuple of parsed ChemicalReaction objects.
+    
+        C++ signature :
+            class boost::python::api::object ReactionsFromChemDrawFile(char const * __ptr64 [,bool=False [,bool=False]])
+    """
